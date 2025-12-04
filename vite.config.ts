@@ -6,10 +6,14 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // ********** CORRECCIÓN PARA GITHUB PAGES **********
-  // Añadimos la base para que Vite compile con la ruta del repositorio.
+  // Rutas correctas para GitHub Pages
   base: '/KuchaBicho-video/',
-  // ****************************************************
+
+  // ******** AÑADE ESTE BLOQUE ***********
+  build: {
+    outDir: 'docs', // Le dice a Vite que compile en la carpeta 'docs'
+  },
+  // **************************************
 
   server: {
     host: "::",
