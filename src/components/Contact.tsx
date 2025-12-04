@@ -127,7 +127,7 @@ const Contact = () => {
             <span>Respuesta en menos de 24hs</span>
           </div>
           <h2 className="section-title">Contactanos</h2>
-          <p className="text-xl text-foreground/70 max-w-2xl mx-auto mt-4">
+          <p className="text-2xl text-foreground/70 max-w-2xl mx-auto mt-4">
             Completá el formulario o escribinos por WhatsApp
           </p>
         </div>
@@ -144,10 +144,10 @@ const Contact = () => {
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl animate-pulse" />
               <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
-              <h3 className="text-2xl font-heading font-bold text-foreground mb-2 relative z-10">
+              <h3 className="text-3xl font-heading font-bold text-foreground mb-2 relative z-10">
                 Envianos tu consulta
               </h3>
-              <p className="text-foreground/60 text-sm mb-8 relative z-10">
+              <p className="text-foreground/60 text-base mb-8 relative z-10">
                 Te respondemos a la brevedad
               </p>
 
@@ -274,15 +274,15 @@ const Contact = () => {
                   <MessageCircle size={40} className="text-white" />
                 </div>
 
-                <h3 className="text-3xl font-heading font-bold text-white mb-4">
+                <h3 className="text-4xl font-heading font-bold text-white mb-4">
                   WhatsApp Directo
                 </h3>
 
-                <p className="text-white/90 mb-2 text-lg font-medium">
+                <p className="text-white/90 mb-2 text-xl font-medium">
                   Respuesta inmediata
                 </p>
 
-                <p className="text-white/70 mb-8 leading-relaxed">
+                <p className="text-white/70 mb-8 leading-relaxed text-lg">
                   ¿Necesitás atención urgente? Escribinos ahora y te respondemos al instante.
                 </p>
 
@@ -310,7 +310,7 @@ const Contact = () => {
                   Chatear Ahora
                 </button>
 
-                <p className="text-white/50 text-sm mt-4 text-center">
+                <p className="text-white/50 text-base mt-4 text-center">
                   Atención 24/7 para urgencias
                 </p>
               </div>
