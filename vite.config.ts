@@ -6,6 +6,11 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // ********** CORRECCIÓN PARA GITHUB PAGES **********
+  // Añadimos la base para que Vite compile con la ruta del repositorio.
+  base: '/KuchaBicho-video/',
+  // ****************************************************
+
   server: {
     host: "::",
     port: 8080,
