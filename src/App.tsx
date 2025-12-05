@@ -10,7 +10,7 @@ import Contacto from "./pages/Contacto";
 import NotFound from "./pages/NotFound";
 
 // 1. IMPORTAMOS EL HEADER (Asegurate que la ruta sea correcta)
-import Header from "./components/Header"; 
+import Header from "./components/Header";
 
 const queryClient = new QueryClient();
 
@@ -19,8 +19,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        
+      {/* 💥 CORRECCIÓN FINAL: Añadimos basename para React Router */}
+      <BrowserRouter basename="/KuchaBicho-video">
+
         {/* 2. AGREGAMOS EL HEADER ACÁ (Adentro del Router, afuera de las rutas) */}
         <Header />
 
