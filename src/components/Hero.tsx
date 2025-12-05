@@ -25,7 +25,9 @@ const Hero = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+
+          {/* 💥 CONTENEDOR DE TEXTO: Ahora es el SEGUNDO en móvil (order-2) y PRIMERO en LG (lg:order-1) */}
+          <div className={`order-2 lg:order-1 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <h1 className="text-6xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight">
               <span className="text-white">KuchaBicho</span>
             </h1>
@@ -42,7 +44,7 @@ const Hero = () => {
                 Contactanos por WhatsApp
               </button>
               {/* Usa <a> o <Link> según tu configuración */}
-              <a href="/servicios" className="btn-outline-gold text-center">Ver Servicios</a>
+              <a href="../src/pages/Servicios" className="btn-outline-gold text-center">Ver Servicios</a>
             </div>
             <div className="flex flex-wrap gap-6">
               <div className="text-center">
@@ -59,7 +61,9 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+
+          {/* 💥 CONTENEDOR DE IMAGEN: Ahora es el PRIMERO en móvil (order-1) y SEGUNDO en LG (lg:order-2) */}
+          <div className={`order-1 lg:order-2 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-3xl blur-2xl" />
               <div className="relative rounded-3xl overflow-hidden border-4 border-primary/30 shadow-2xl">

@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Shield } from 'lucide-react';
 
+// 💥 CORRECCIÓN DE IMAGEN: ELIMINAMOS la importación fallida de src/assets/
+// Ya que la imagen está en public/, la referenciamos directamente.
+// import LogoImage from '../assets/kuchabichologo.png'; 
+
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,27 +39,28 @@ const Header = () => {
       <div className="container mx-auto px-4 py-2 max-h-20"> {/* <- ¡AGREGADO! */}
         {/* Top badge - Empresa Habilitada */}
         {/* <div className="flex justify-center mb-2">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full text-xs font-medium text-primary animate-pulse">
-            <Shield size={14} />
-            <span>Empresa Habilitada · Productos Aprobados</span>
-          </div>
-        </div>
-        */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full text-xs font-medium text-primary animate-pulse">
+            <Shield size={14} />
+            <span>Empresa Habilitada · Productos Aprobados</span>
+          </div>
+        </div>
+        */}
 
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/" className="flex flex-col items-center gap-1 md:flex-row md:items-center md:gap-3">
             <img
-              src="/kuchabichologo.png"
+              // 💥 CORRECCIÓN FINAL: Usamos BASE_URL + ruta de public/
+              src={import.meta.env.BASE_URL + "kuchabichologo.png"}
               alt="Kuchabicho Logo"
               // ¡VUELVE A PONER LAS CLASES AQUÍ!
               className="w-20 h-20 object-contain transition-transform duration-300 hover:scale-110"
             />
             <div>
-              <span className="text-3xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-yellow-300 block leading-none">
+              <span className="text-3xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-yellow-300 block leading-none text-center md:text-left">
                 Kuchabicho
               </span>
-              <span className="text-sm text-foreground/60">Control de Plagas</span>
+              <span className="text-sm text-foreground/60 text-center md:text-left">Control de Plagas</span>
             </div>
           </Link>
 
@@ -66,8 +71,8 @@ const Header = () => {
                 key={link.path}
                 to={link.path}
                 className={`transition-colors duration-300 font-medium ${isActive(link.path)
-                    ? 'text-primary'
-                    : 'text-foreground/80 hover:text-primary'
+                  ? 'text-primary'
+                  : 'text-foreground/80 hover:text-primary'
                   }`}
               >
                 {link.label}
@@ -111,8 +116,8 @@ const Header = () => {
                 to={link.path}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`text-left transition-colors duration-300 font-medium py-2 ${isActive(link.path)
-                    ? 'text-primary'
-                    : 'text-foreground/80 hover:text-primary'
+                  ? 'text-primary'
+                  : 'text-foreground/80 hover:text-primary'
                   }`}
               >
                 {link.label}

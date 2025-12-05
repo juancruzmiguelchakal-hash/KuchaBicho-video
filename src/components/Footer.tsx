@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom';
 
+// 💥 CORRECCIÓN DE IMAGEN: ELIMINAMOS la importación fallida de src/assets/
+// Ya que la imagen está en public/, la referenciamos directamente.
+// import LogoImage from '../assets/kuchabichologo.png';
+
+
 const Footer = () => {
   return (
     <footer className="bg-card border-t border-border/50 py-16">
@@ -9,8 +14,8 @@ const Footer = () => {
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-4">
               <img
-                // CORRECCIÓN: Agregar la ruta del archivo en la carpeta public/
-                src="/kuchabichologo.png"
+                // 💥 CORRECCIÓN FINAL: Usamos BASE_URL + ruta de public/
+                src={import.meta.env.BASE_URL + "kuchabichologo.png"}
                 alt="Kuchabicho Logo"
                 className="w-10 h-10 object-contain"
               />
@@ -67,12 +72,11 @@ const Footer = () => {
             <h4 className="text-xl font-heading font-bold text-foreground mb-4">Horarios</h4>
             <ul className="space-y-3">
               <li><span className="text-foreground/60 text-base">Lun–Vie: 8:00–20:00</span></li>
-              <li><span className="text-foreground/60 text-base">Sáb: 9:00–14:00</span></li>
+              <li><span className="text-foreground/60 text-base">Sáb: 9:00–16:00</span></li>
               <li><span className="text-primary font-semibold text-base">Urgencias 24/7</span></li>
             </ul>
             <div className="mt-4">
               <p className="text-foreground/60 text-base">Tel: +54 9 11 4405-1154</p>
-              <p className="text-foreground/60 text-base">juancruzmiguelchakal@gmail.com</p>
             </div>
           </div>
         </div>
@@ -81,6 +85,9 @@ const Footer = () => {
         <div className="border-t border-border/50 mt-12 pt-8 text-center">
           <p className="text-foreground/50 text-base">
             © {new Date().getFullYear()} Kuchabicho Control de Plagas. Todos los derechos reservados.
+          </p>
+          <p className="text-foreground/50 text-sm mt-1">
+            Desarrollado por Lovable
           </p>
         </div>
       </div>
