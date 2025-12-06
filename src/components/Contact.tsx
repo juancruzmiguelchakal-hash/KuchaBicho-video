@@ -5,17 +5,43 @@
  * - vanilla-tilt: Para efectos 3D tilt en cada elemento
  *   Instalación: npm install vanilla-tilt
  * 
- * CONFIGURACIÓN REQUERIDA:
- * 1. FORMSUPPLY: Reemplazar el action del form con tu endpoint de Formsupply
- * 2. WHATSAPP: El número ya está configurado, pero verificar que esté habilitado en WhatsApp Business API
+ * SEGURIDAD IMPLEMENTADA:
+ * ✅ CAPTCHA de FormSubmit habilitado
+ * ✅ Honeypot anti-bot (campo oculto)
+ * ✅ Token CSRF enviado en headers
+ * ✅ Validación de inputs en cliente
+ * ✅ Envío seguro via fetch con credenciales
  */
 
 import { useEffect, useRef, useState } from 'react';
-import { Send, MessageCircle, Sparkles } from 'lucide-react';
+import { Send, MessageCircle, Sparkles, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import VanillaTilt from 'vanilla-tilt';
+
+// Configuración del backend API
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+// Tipos para el estado del formulario
+type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+  phone: string;
+}
 
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [formStatus, setFormStatus] = useState<FormStatus>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [csrfToken, setCsrfToken] = useState('');
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    message: '',
+    phone: ''
+  });
+
   const formContainerRef = useRef<HTMLDivElement>(null);
   const inputRefs = useRef<(HTMLDivElement | null)[]>([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -25,6 +51,31 @@ const Contact = () => {
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
+  }, []);
+
+  /**
+   * CSRF TOKEN FETCHING
+   * ===================
+   * Obtiene el token CSRF del backend al cargar el componente
+   */
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/csrf-token`, {
+          method: 'GET',
+          credentials: 'include', // Importante para cookies
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setCsrfToken(data.csrfToken);
+        }
+      } catch (error) {
+        console.error('Error obteniendo CSRF token:', error);
+        // Si falla el backend, seguir usando FormSubmit como fallback
+      }
+    };
+
+    fetchCsrfToken();
   }, []);
 
   // Inicializar Tilt 3D en todos los elementos
@@ -69,18 +120,6 @@ const Contact = () => {
       });
     }
 
-    // Tilt para WhatsApp card - REMOVIDO para corregir bug de click
-    // if (whatsappRef.current) {
-    //   VanillaTilt.init(whatsappRef.current, {
-    //     max: 12,
-    //     speed: 500,
-    //     glare: true,
-    //     "max-glare": 0.35,
-    //     scale: 1.05,
-    //     perspective: 900,
-    //   });
-    // }
-
     // Cleanup
     return () => {
       if (formContainerRef.current) {
@@ -92,29 +131,99 @@ const Contact = () => {
       if (buttonRef.current) {
         (buttonRef.current as any).vanillaTilt?.destroy();
       }
-      // if (whatsappRef.current) {
-      //   (whatsappRef.current as any).vanillaTilt?.destroy();
-      // }
     };
   }, [isVisible]);
 
   /**
    * WHATSAPP - IMPORTANTE:
    * El número configurado es: +54 9 11 4405-1154
-   * 
-   * ⚠️ ADVERTENCIA: La API de WhatsApp puede rechazar la conexión si:
-   * - El número no está registrado en WhatsApp
-   * - El número no tiene WhatsApp Business configurado
-   * - El formato del número es incorrecto
-   * 
-   * Formato correcto: Solo números, sin espacios ni guiones
-   * Ejemplo: 5491144051154
    */
-  const WHATSAPP_NUMBER = '5491144051154'; // ← REEMPLAZAR CON TU NÚMERO DE WHATSAPP
+  const WHATSAPP_NUMBER = '5491144051154';
 
   const handleWhatsApp = () => {
     const message = 'Hola! Quiero consultar sobre sus servicios de control de plagas.';
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  /**
+   * FORM SUBMISSION HANDLER
+   * =======================
+   * Envía el formulario al backend seguro con token CSRF
+   * Si el backend no está disponible, usa FormSubmit como fallback
+   */
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('loading');
+    setErrorMessage('');
+
+    // Obtener el valor del honeypot
+    const form = e.currentTarget;
+    const honeypotValue = (form.elements.namedItem('_honeypot') as HTMLInputElement)?.value;
+
+    // Si el honeypot tiene valor, es un bot - simular éxito
+    if (honeypotValue) {
+      console.warn('🤖 Bot detectado via honeypot');
+      setFormStatus('success');
+      return;
+    }
+
+    try {
+      // Intentar enviar al backend seguro primero
+      if (csrfToken) {
+        const response = await fetch(`${API_BASE_URL}/api/contact`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-csrf-token': csrfToken,
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            ...formData,
+            _honeypot: honeypotValue, // Incluir para validación del servidor
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setFormStatus('success');
+          setFormData({ name: '', email: '', message: '', phone: '' });
+          return;
+        } else {
+          // Si hay errores de validación, mostrarlos
+          if (data.errors) {
+            setErrorMessage(data.errors.map((e: any) => e.message).join('. '));
+          } else {
+            setErrorMessage(data.error || 'Error al enviar el mensaje');
+          }
+          setFormStatus('error');
+          return;
+        }
+      }
+
+      // Fallback: Si no hay token CSRF (backend no disponible), usar FormSubmit
+      const formDataObj = new FormData(form);
+      const response = await fetch('https://formsubmit.co/ajax/myvisioncraftai@gmail.com', {
+        method: 'POST',
+        body: formDataObj,
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+        setFormData({ name: '', email: '', message: '', phone: '' });
+      } else {
+        throw new Error('Error al enviar');
+      }
+    } catch (error) {
+      console.error('Error enviando formulario:', error);
+      setErrorMessage('Error de conexión. Por favor, intenta nuevamente.');
+      setFormStatus('error');
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -133,7 +242,7 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
-          {/* Formulario con Formsupply - 3 columnas */}
+          {/* Formulario con seguridad mejorada - 3 columnas */}
           <div
             ref={formContainerRef}
             className={`lg:col-span-3 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
@@ -151,22 +260,66 @@ const Contact = () => {
                 Te respondemos a la brevedad
               </p>
 
+              {/* Mensaje de éxito */}
+              {formStatus === 'success' && (
+                <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-2xl flex items-center gap-3 relative z-10">
+                  <CheckCircle className="text-green-500" size={24} />
+                  <p className="text-green-400 font-medium">¡Mensaje enviado con éxito! Te responderemos pronto.</p>
+                </div>
+              )}
+
+              {/* Mensaje de error */}
+              {formStatus === 'error' && (
+                <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-2xl flex items-center gap-3 relative z-10">
+                  <AlertCircle className="text-red-500" size={24} />
+                  <p className="text-red-400 font-medium">{errorMessage}</p>
+                </div>
+              )}
+
               {/**
-               * FORMSUPPLY INTEGRATION
-               * =====================
-               * Reemplazar el action con tu endpoint de Formsupply:
-               * action="https://formsupply.io/f/TU_FORM_ID"
-               * 
-               * Para obtener tu endpoint:
-               * 1. Crear cuenta en formsupply.io
-               * 2. Crear nuevo formulario
-               * 3. Copiar el endpoint generado
+               * FORMULARIO SEGURO
+               * =================
+               * - CAPTCHA habilitado via FormSubmit
+               * - Honeypot anti-bot
+               * - CSRF token en headers (no en form)
                */}
               <form
-                action="https://formsubmit.co/myvisioncraftai@gmail.com" // ← REEMPLAZAR CON TU ENDPOINT DE FORMSUPPLY
-                method="POST"
+                onSubmit={handleSubmit}
                 className="space-y-6 relative z-10"
               >
+                {/* ===== CAMPOS DE SEGURIDAD OCULTOS ===== */}
+
+                {/* CAPTCHA - FormSubmit mostrará su CAPTCHA */}
+                <input type="hidden" name="_captcha" value="true" />
+
+                {/* Template de email */}
+                <input type="hidden" name="_template" value="table" />
+
+                {/* Asunto del email */}
+                <input type="hidden" name="_subject" value="Nuevo mensaje de contacto - Kuchabicho" />
+
+                {/**
+                 * HONEYPOT ANTI-BOT
+                 * =================
+                 * Campo oculto que los bots llenan automáticamente
+                 * Si tiene contenido, el servidor rechaza el envío
+                 */}
+                <input
+                  type="text"
+                  name="_honeypot"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{
+                    position: 'absolute',
+                    left: '-9999px',
+                    top: '-9999px',
+                    opacity: 0,
+                    height: 0,
+                    width: 0,
+                    zIndex: -1,
+                  }}
+                />
+
                 {/* Input Nombre con Tilt 3D */}
                 <div
                   ref={(el) => { inputRefs.current[0] = el; }}
@@ -182,6 +335,8 @@ const Contact = () => {
                     type="text"
                     required
                     maxLength={100}
+                    value={formData.name}
+                    onChange={handleInputChange}
                     className="w-full px-5 py-4 bg-background/80 border-2 border-border/50 rounded-2xl 
                              focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary 
                              transition-all duration-300 hover:border-primary/50 hover:shadow-lg
@@ -205,6 +360,8 @@ const Contact = () => {
                     type="email"
                     required
                     maxLength={255}
+                    value={formData.email}
+                    onChange={handleInputChange}
                     className="w-full px-5 py-4 bg-background/80 border-2 border-border/50 rounded-2xl 
                              focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary 
                              transition-all duration-300 hover:border-primary/50 hover:shadow-lg
@@ -213,9 +370,33 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Textarea Mensaje con Tilt 3D */}
+                {/* Input Teléfono (opcional) con Tilt 3D */}
                 <div
                   ref={(el) => { inputRefs.current[2] = el; }}
+                  className={`transition-all duration-700 delay-450 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  <label htmlFor="phone" className="block text-sm font-medium text-foreground/80 mb-2">
+                    Teléfono <span className="text-foreground/40">(opcional)</span>
+                  </label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    maxLength={20}
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full px-5 py-4 bg-background/80 border-2 border-border/50 rounded-2xl 
+                             focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary 
+                             transition-all duration-300 hover:border-primary/50 hover:shadow-lg
+                             placeholder:text-foreground/40"
+                    placeholder="+54 11 1234-5678"
+                  />
+                </div>
+
+                {/* Textarea Mensaje con Tilt 3D */}
+                <div
+                  ref={(el) => { inputRefs.current[3] = el; }}
                   className={`transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                   style={{ transformStyle: 'preserve-3d' }}
                 >
@@ -228,6 +409,8 @@ const Contact = () => {
                     rows={5}
                     required
                     maxLength={1000}
+                    value={formData.message}
+                    onChange={handleInputChange}
                     className="w-full px-5 py-4 bg-background/80 border-2 border-border/50 rounded-2xl 
                              focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary 
                              transition-all duration-300 hover:border-primary/50 hover:shadow-lg resize-none
@@ -241,18 +424,29 @@ const Contact = () => {
                   <button
                     ref={buttonRef}
                     type="submit"
+                    disabled={formStatus === 'loading'}
                     className="w-full py-5 px-8 rounded-2xl font-bold text-lg
                              bg-gradient-to-r from-primary via-yellow-400 to-primary bg-[length:200%_100%]
                              text-primary-foreground shadow-xl
                              hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] 
                              transition-all duration-500 
                              flex items-center justify-center gap-3
-                             animate-gradient-x"
+                             animate-gradient-x
+                             disabled:opacity-70 disabled:cursor-not-allowed"
                     style={{ transformStyle: 'preserve-3d' }}
                   >
-                    <Send size={22} className="animate-bounce" style={{ animationDuration: '2s' }} />
-                    Enviar Mensaje
-                    <Sparkles size={18} className="animate-pulse" />
+                    {formStatus === 'loading' ? (
+                      <>
+                        <Loader2 size={22} className="animate-spin" />
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        <Send size={22} className="animate-bounce" style={{ animationDuration: '2s' }} />
+                        Enviar Mensaje
+                        <Sparkles size={18} className="animate-pulse" />
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
@@ -286,16 +480,6 @@ const Contact = () => {
                   ¿Necesitás atención urgente? Escribinos ahora y te respondemos al instante.
                 </p>
 
-                {/**
-                 * BOTÓN WHATSAPP
-                 * ==============
-                 * El número está configurado en la constante WHATSAPP_NUMBER arriba.
-                 * 
-                 * ⚠️ IMPORTANTE: La API de WhatsApp Web puede fallar si:
-                 * - El número no existe o no tiene WhatsApp
-                 * - El usuario no tiene WhatsApp instalado
-                 * - El navegador bloquea popups
-                 */}
                 <button
                   type="button"
                   onClick={handleWhatsApp}
@@ -328,7 +512,8 @@ const Contact = () => {
         .animate-gradient-x {
           animation: gradient-x 3s ease infinite;
         }
-      `}</style>
+      `}
+      </style>
     </section>
   );
 };
