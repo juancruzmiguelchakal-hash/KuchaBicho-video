@@ -86,9 +86,7 @@ const Footer = () => {
           <p className="text-foreground/50 text-base">
             © {new Date().getFullYear()} Kuchabicho Control de Plagas. Todos los derechos reservados.
           </p>
-          <p className="text-foreground/50 text-sm mt-1">
-            Desarrollado por Lovable
-          </p>
+
         </div>
       </div>
     </footer>
