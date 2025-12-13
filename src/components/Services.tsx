@@ -92,8 +92,8 @@ interface ServicesProps {
 
 const Services = ({ onOpenModal }: ServicesProps) => {
   return (
-    <section id="servicios" className="py-20 bg-gradient-to-b from-background to-card/30">
-      <div className="container mx-auto px-4">
+    <section id="servicios" className="py-20 bg-gradient-to-b from-background to-card/60 w-full">
+      <div className="w-full mx-auto px-4 md:px-[50px]">
         <div className="text-center mb-12">
           <h2 className="section-title">Nuestros Servicios</h2>
           <p className="text-2xl text-foreground/70 max-w-2xl mx-auto mt-4">
@@ -101,7 +101,7 @@ const Services = ({ onOpenModal }: ServicesProps) => {
           </p>
 
           {/* Invoice A and B Notice */}
-          <div className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-primary/10 border border-primary/30 rounded-full animate-pulse">
+          <div className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-primary/10 border border-primary/30 rounded-full">
             <FileText className="text-primary" size={20} />
             <span className="text-primary font-semibold text-lg">
               Emitimos Factura A y Factura B

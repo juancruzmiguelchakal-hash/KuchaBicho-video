@@ -36,24 +36,12 @@ const Header = () => {
       className={`fixed top-0 w-full z-40 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-lg shadow-lg border-b border-border/50' : 'bg-transparent'
         }`}
     >
-      <div className="container mx-auto px-4 py-2 max-h-20"> {/* <- ¡AGREGADO! */}
-        {/* Top badge - Empresa Habilitada */}
-        {/* <div className="flex justify-center mb-2">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full text-xs font-medium text-primary animate-pulse">
-            <Shield size={14} />
-            <span>Empresa Habilitada · Productos Aprobados</span>
-          </div>
-        </div>
-        */}
-
-        <div className="flex items-center justify-between">
+      <div className="w-full mx-auto px-4 md:px-[50px] py-2 max-h-20 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex flex-col items-center gap-1 md:flex-row md:items-center md:gap-3">
             <img
-              // 💥 CORRECCIÓN FINAL: Usamos BASE_URL + ruta de public/
               src={import.meta.env.BASE_URL + "kuchabichologo.png"}
               alt="Kuchabicho Logo"
-              // ¡VUELVE A PONER LAS CLASES AQUÍ!
               className="w-20 h-20 object-contain transition-transform duration-300 hover:scale-110"
             />
             <div>
@@ -103,7 +91,6 @@ const Header = () => {
               )}
             </svg>
           </button>
-        </div>
       </div>
 
       {/* Mobile Menu */}

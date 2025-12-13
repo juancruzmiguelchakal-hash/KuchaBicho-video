@@ -17,10 +17,13 @@ const Nosotros = () => {
 
       {/* Hero Section */}
       <section className="pt-40 pb-20 bg-gradient-to-b from-background to-card/30">
-        <div className="container mx-auto px-4">
+        <div className="w-full mx-auto px-4 md:px-[50px]">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-heading font-bold mb-6">
-              <span className="text-foreground">Sobre KuchaBicho Fumigaciones</span>
+              <span className="text-foreground">Sobre </span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-yellow-300 to-primary">
+                KuchaBicho Fumigaciones
+              </span>
             </h1>
             <p className="text-2xl text-foreground/70 leading-relaxed">
               Somos un equipo de profesionales con amplia trayectoria en el control de plagas.
@@ -32,7 +35,7 @@ const Nosotros = () => {
 
       {/* Misión y Visión */}
       <section className="py-20 bg-card/30">
-        <div className="container mx-auto px-4">
+        <div className="w-full mx-auto px-4 md:px-[50px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             <div className="bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-border/50">
               <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
@@ -61,7 +64,7 @@ const Nosotros = () => {
 
       {/* Valores */}
       <section className="py-20 bg-gradient-to-b from-card/30 to-background">
-        <div className="container mx-auto px-4">
+        <div className="w-full mx-auto px-4 md:px-[50px]">
           <h2 className="section-title text-center mb-12">Nuestros Valores</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="text-center p-6">

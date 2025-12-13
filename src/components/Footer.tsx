@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer className="bg-card border-t border-border/50 py-16">
-      <div className="container mx-auto px-4">
+      <div className="w-full mx-auto px-4 md:px-[50px]">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Logo & Description */}
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-3 mb-4">
+            <Link to="/" className="flex items-center justify-center md:justify-start gap-3 mb-4">
               <img
                 // 💥 CORRECCIÓN FINAL: Usamos BASE_URL + ruta de public/
                 src={import.meta.env.BASE_URL + "kuchabichologo.png"}
@@ -23,7 +23,7 @@ const Footer = () => {
                 Kuchabicho
               </span>
             </Link>
-            <p className="text-foreground/60 text-base leading-relaxed">
+            <p className="text-foreground/60 text-base leading-relaxed text-center md:text-left">
               Expertos en control de plagas para hogares y empresas. Soluciones de fumigación efectivas y garantizadas.
             </p>
           </div>

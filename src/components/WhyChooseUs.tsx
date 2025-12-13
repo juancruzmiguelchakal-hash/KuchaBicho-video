@@ -59,7 +59,7 @@ const FeatureCard = ({ icon, title, description, delay }: FeatureCardProps) => {
 const WhyChooseUs = () => {
   return (
     <section id="por-que" className="py-20 bg-gradient-to-b from-card/30 to-background">
-      <div className="container mx-auto px-4">
+      <div className="w-full mx-auto px-4 md:px-[50px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           {/* Left: Image */}
           <div className="order-2 lg:order-1">
