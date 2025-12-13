@@ -6,24 +6,21 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // Rutas correctas para GitHub Pages
-  base: '/KuchaBicho-video/',
-
-  // ******** AÑADE ESTE BLOQUE ***********
+  // Para un despliegue en un dominio propio (ej. kuchabicho.com), la base debe ser '/'
+  base: '/',
   build: {
-    outDir: 'docs', // Le dice a Vite que compile en la carpeta 'docs'
+    // El directorio de salida estándar es 'dist'. 'docs' se usa para GitHub Pages.
+    outDir: 'dist',
   },
-  // **************************************
 
   server: {
     host: "::",
     port: 8080,
   },
-  plugins: [react()].filter(Boolean),
+  plugins: [react()],
   resolve: {
     alias: {
-      // ⬇️ MODIFICAR AQUÍ ⬇️
-      "@/": path.resolve(__dirname, "./src/") + '/', // Asegúrate de que termine en /
+      "@": path.resolve(__dirname, "./src"),
     },
   },
 }));

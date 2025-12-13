@@ -180,8 +180,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
   const serviceContent: Record<string, any> = {
     desratizacion: {
-      title: 'Desratización Profesional',
-      description: 'Nuestro servicio de desratización utiliza técnicas avanzadas y productos seguros para eliminar roedores de forma efectiva. Garantizamos resultados duraderos protegiendo tu hogar o negocio.',
+      title: 'Control Profesional de Roedores',
+      description: 'Nuestro servicio de desratización profesional utiliza técnicas avanzadas y productos seguros para eliminar ratas y ratones de forma efectiva. Garantizamos resultados duraderos protegiendo tu hogar o negocio.',
       benefits: [
         'Inspección completa del inmueble',
         'Identificación de puntos de entrada',
@@ -198,8 +198,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
       ]
     },
     fumigacion: {
-      title: 'Fumigación Profesional',
-      description: 'Servicio de fumigación integral para eliminar todo tipo de plagas en tu hogar o negocio. Utilizamos productos de última generación con mínimo impacto ambiental.',
+      title: 'Fumigación y Desinsectación General',
+      description: 'Servicio de fumigación integral para eliminar una amplia variedad de insectos en tu hogar o negocio. Utilizamos productos de última generación con mínimo impacto ambiental.',
       benefits: [
         'Eliminación de insectos voladores y rastreros',
         'Productos ecológicos disponibles',
@@ -216,11 +216,11 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
       ]
     },
     insecticidas: {
-      title: 'Aplicación de Insecticidas',
-      description: 'Servicio profesional de aplicación de insecticidas para eliminar todo tipo de insectos. Utilizamos productos de alta calidad con efecto residual prolongado.',
+      title: 'Control Específico de Cucarachas',
+      description: 'Tratamiento de choque diseñado para eliminar cucarachas de forma rápida y efectiva. Utilizamos geles y productos específicos que atacan el nido y cortan el ciclo de reproducción.',
       benefits: [
-        'Eliminación de cucarachas, hormigas y arañas',
-        'Control de mosquitos y moscas',
+        'Eliminación de todo tipo de cucarachas (alemanas, americanas)',
+        'Aplicación de cebo en gel de alta atracción',
         'Productos de baja toxicidad',
         'Aplicación en zonas críticas',
         'Efecto residual prolongado',
@@ -229,13 +229,13 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
       time: '1-3 horas',
       warranty: '45 días de garantía',
       faqs: [
-        { q: '¿Funciona contra todo tipo de insectos?', a: 'Sí, nuestro tratamiento es efectivo contra la mayoría de insectos domésticos.' },
+        { q: '¿Es seguro para mi cocina?', a: 'Sí, aplicamos los productos en zonas seguras y de difícil acceso para niños o mascotas.' },
         { q: '¿Con qué frecuencia debo repetir el servicio?', a: 'Recomendamos tratamientos cada 3-4 meses para prevención.' }
       ]
     },
     sanitizacion: {
-      title: 'Sanitización Profesional',
-      description: 'Servicio de desinfección profunda para eliminar virus, bacterias, hongos y otros microorganismos. Ideal para hogares, oficinas y comercios.',
+      title: 'Sanitización y Desinfección de Ambientes',
+      description: 'Servicio de desinfección profunda para eliminar el 99.9% de virus, bacterias y hongos. Ideal para crear espacios seguros en hogares, oficinas y comercios.',
       benefits: [
         'Eliminación del 99.9% de virus y bacterias',
         'Productos certificados y seguros',
@@ -252,8 +252,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
       ]
     },
     comercial: {
-      title: 'Fumigación Comercial',
-      description: 'Servicios profesionales para empresas, restaurantes, hoteles y comercios con planes personalizados según las normativas vigentes.',
+      title: 'Control de Plagas para Empresas',
+      description: 'Servicios profesionales para empresas, restaurantes, hoteles y consorcios. Ofrecemos planes personalizados que cumplen con todas las normativas vigentes.',
       benefits: [
         'Plan mensual o trimestral',
         'Cumplimiento de normas sanitarias',
@@ -526,7 +526,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all resize-none"
-                  placeholder="Detalles adicionales..."
+                  placeholder="Ej: 'Tengo cucarachas en la cocina', 'Necesito un servicio urgente', etc."
                   disabled={isSubmitting}
                 />
               </div>

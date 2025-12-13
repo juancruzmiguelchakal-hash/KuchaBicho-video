@@ -1,26 +1,30 @@
-import Header from '@/components/Header';
+import { Helmet } from 'react-helmet-async';
 import Footer from '@/components/Footer';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import { Shield, Target, Users, Award } from 'lucide-react';
 
 const Nosotros = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
+    <>
+      <Helmet>
+        <title>Sobre KuchaBicho Fumigaciones | Expertos en Control de Plagas</title>
+        <meta name="description" content="Conocé a KuchaBicho Fumigaciones. Somos un equipo de profesionales con amplia trayectoria en fumigación profesional y control de plagas, comprometidos con tu seguridad." />
+        <link rel="canonical" href="https://www.kuchabicho.com/nosotros" />
+        <meta property="og:title" content="Sobre KuchaBicho Fumigaciones | Expertos en Control de Plagas" />
+        <meta property="og:description" content="Somos un equipo de profesionales con amplia trayectoria en fumigación profesional y control de plagas." />
+        <meta property="og:url" content="https://www.kuchabicho.com/nosotros" />
+      </Helmet>
 
       {/* Hero Section */}
       <section className="pt-40 pb-20 bg-gradient-to-b from-background to-card/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-heading font-bold mb-6">
-              <span className="text-foreground">Sobre </span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-yellow-300 to-primary">
-                Kuchabicho
-              </span>
+              <span className="text-foreground">Sobre KuchaBicho Fumigaciones</span>
             </h1>
             <p className="text-2xl text-foreground/70 leading-relaxed">
-              Somos una empresa nueva con profesionales de amplia trayectoria en el control de plagas.
-              Combinamos técnicas modernas con un servicio cercano y personalizado.
+              Somos un equipo de profesionales con amplia trayectoria en el control de plagas.
+              Combinamos experiencia y técnicas modernas para ofrecer un servicio cercano y garantizado.
             </p>
           </div>
         </div>
@@ -89,7 +93,7 @@ const Nosotros = () => {
 
       <WhyChooseUs />
       <Footer />
-    </div>
+    </>
   );
 };
 

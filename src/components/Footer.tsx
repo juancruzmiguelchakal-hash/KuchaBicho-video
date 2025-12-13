@@ -16,7 +16,7 @@ const Footer = () => {
               <img
                 // 💥 CORRECCIÓN FINAL: Usamos BASE_URL + ruta de public/
                 src={import.meta.env.BASE_URL + "kuchabichologo.png"}
-                alt="Kuchabicho Logo"
+                alt="Logo de KuchaBicho Fumigaciones"
                 className="w-10 h-10 object-contain"
               />
               <span className="text-2xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-yellow-300">
@@ -24,7 +24,7 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-foreground/60 text-base leading-relaxed">
-              Control profesional de plagas para hogares y empresas. Soluciones efectivas y garantizadas.
+              Expertos en control de plagas para hogares y empresas. Soluciones de fumigación efectivas y garantizadas.
             </p>
           </div>
 
@@ -59,11 +59,11 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-heading font-bold text-foreground mb-4">Servicios</h4>
             <ul className="space-y-3">
-              <li><span className="text-foreground/60 text-base">Desratización</span></li>
-              <li><span className="text-foreground/60 text-base">Desinsectación</span></li>
-              <li><span className="text-foreground/60 text-base">Control de Cucarachas</span></li>
-              <li><span className="text-foreground/60 text-base">Control de Termitas</span></li>
-              <li><span className="text-foreground/60 text-base">Fumigación Comercial</span></li>
+              <li><Link to="/servicios" className="text-foreground/60 hover:text-primary transition-colors text-base">Desratización</Link></li>
+              <li><Link to="/servicios" className="text-foreground/60 hover:text-primary transition-colors text-base">Desinsectación</Link></li>
+              <li><Link to="/servicios" className="text-foreground/60 hover:text-primary transition-colors text-base">Control de Cucarachas</Link></li>
+              <li><Link to="/servicios" className="text-foreground/60 hover:text-primary transition-colors text-base">Control de Termitas</Link></li>
+              <li><Link to="/servicios" className="text-foreground/60 hover:text-primary transition-colors text-base">Fumigación Comercial</Link></li>
             </ul>
           </div>
 

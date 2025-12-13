@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Shield, Award, Users, Leaf, Clock } from 'lucide-react';
+import { Shield, Award, Users, Clock } from 'lucide-react';
 import whyImage from '@/assets/why-choose-us.jpg';
 
 interface FeatureCardProps {
@@ -67,8 +67,9 @@ const WhyChooseUs = () => {
               <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-transparent rounded-3xl blur-2xl" />
               <div className="relative rounded-3xl overflow-hidden border-4 border-primary/20 shadow-2xl">
                 <img 
-                  src={whyImage} 
-                  alt="Profesional de Kucha Bicho atendiendo cliente" 
+                  src={whyImage}
+                  alt="Técnico de KuchaBicho Fumigaciones realizando un servicio de control de plagas profesional"
+                  loading="lazy"
                   className="w-full h-auto object-cover"
                 />
               </div>
@@ -89,32 +90,32 @@ const WhyChooseUs = () => {
             </h2>
 
             <p className="text-lg text-foreground/70 mb-8 leading-relaxed">
-              Somos una empresa dedicada al control de plagas, enfocada en brindar un servicio profesional, seguro y confiable para hogares, comercios e industrias.
+              En KuchaBicho Fumigaciones nos dedicamos al <strong>control de plagas</strong>, brindando un servicio profesional, seguro y confiable para hogares, comercios e industrias.
             </p>
 
             <div className="space-y-4">
               <FeatureCard
                 icon={<Shield size={28} />}
                 title="Confianza y Seguridad"
-                description="Trabajamos con productos aprobados y procedimientos seguros para proteger tu hogar, tu comercio y tu familia."
+                description="Utilizamos productos aprobados y procedimientos seguros para proteger tu hogar, tu negocio y, sobre todo, a tu familia."
                 delay={0}
               />
               <FeatureCard
                 icon={<Award size={28} />}
                 title="Experiencia Comprobada"
-                description="Brindamos soluciones profesionales en hogares, comercios e industrias, adaptándonos a cada tipo de plaga y situación."
+                description="Contamos con amplia experiencia en hogares, comercios e industrias, adaptando nuestras soluciones a cada tipo de plaga."
                 delay={100}
               />
               <FeatureCard
                 icon={<Users size={28} />}
                 title="Trabajos Garantizados"
-                description="Nuestro compromiso es ofrecer resultados reales. Buscamos eliminar el problema desde la raíz para que vivas tranquilo."
+                description="Nuestro compromiso es tu tranquilidad. Ofrecemos garantía en nuestros trabajos, eliminando el problema de raíz."
                 delay={200}
               />
               <FeatureCard
                 icon={<Clock size={28} />}
                 title="Respuesta Rápida"
-                description="Atendemos de forma ágil para resolver tu problema lo antes posible, con soluciones efectivas y sin demoras innecesarias."
+                description="Entendemos la urgencia de tu problema. Atendemos de forma ágil para brindarte una solución efectiva sin demoras."
                 delay={300}
               />
             </div>
