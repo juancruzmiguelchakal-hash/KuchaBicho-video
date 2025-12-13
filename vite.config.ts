@@ -6,8 +6,8 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // Para un despliegue en un dominio propio (ej. kuchabicho.com), la base debe ser '/'
-  base: '/',
+  // Usar rutas relativas para máxima compatibilidad con Vercel y otros hostings.
+  base: mode === 'production' ? '' : '/',
   build: {
     // El directorio de salida estándar es 'dist'. 'docs' se usa para GitHub Pages.
     outDir: 'dist',
