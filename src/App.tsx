@@ -17,11 +17,17 @@ const queryClient = new QueryClient();
 
 const App = () => {
   useEffect(() => {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-      setTimeout(() => {
+    const hideLoader = () => {
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
         preloader.classList.add('preloader-hidden');
-      }, 2000); // 2 segundos
+      }
+    };
+
+    // Espera a que toda la página (imágenes, scripts, etc.) esté completamente cargada.
+    window.onload = () => {
+      // Damos un pequeño respiro para que la transición sea suave.
+      setTimeout(hideLoader, 200);
     }
   }, []);
 
