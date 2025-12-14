@@ -27,7 +27,7 @@ const App = () => {
     // Espera a que toda la página (imágenes, scripts, etc.) esté completamente cargada.
     window.onload = () => {
       // Damos un pequeño respiro para que la transición sea suave.
-      setTimeout(hideLoader, 200);
+      setTimeout(hideLoader, 500);
     }
   }, []);
 

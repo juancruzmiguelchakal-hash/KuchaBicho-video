@@ -208,7 +208,7 @@ All colors MUST be HSL.
   height: 100%;
   background: hsla(var(--background), 0.8); /* Fondo semitransparente */
   backdrop-filter: blur(10px); /* Efecto de desenfoque */
-  display: flex;
+  display: none; /* Oculto por defecto (para móviles) */
   justify-content: center;
   align-items: center;
   z-index: 1000;
@@ -218,6 +218,13 @@ All colors MUST be HSL.
 .preloader-hidden {
   opacity: 0;
   visibility: hidden;
+}
+
+/* Solo muestra el preloader en pantallas grandes (PC) */
+@media (min-width: 1024px) {
+  .preloader {
+    display: flex;
+  }
 }
 
 .loader {
