@@ -14,23 +14,23 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative overflow-hidden pt-36 pb-20 bg-gray-950 text-white" aria-labelledby="hero-title">
+    <section className="relative overflow-hidden pt-32 md:pt-36 pb-20 bg-gray-950 text-white" aria-labelledby="hero-title">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card/30" />
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="w-full mx-auto px-12 md:px-24 lg:px-32 relative z-10">
+      <div className="w-full mx-auto px-6 sm:px-12 md:px-24 lg:px-32 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className={`order-2 lg:order-1 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <h1 id="hero-title" className="text-6xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight">
+          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+            <h1 id="hero-title" className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight">
               <span className="text-white">KuchaBicho Fumigaciones</span>
             </h1>
-            <p className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-yellow-300 to-primary">
+            <p className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-yellow-300 to-primary">
               Si hay invasión, Kuchabicho es la solución.
             </p>
-            <p className="text-xl text-gray-300 mb-10 leading-relaxed max-w-xl">
+            <p className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-xl">
               Servicio profesional para eliminar cucarachas, roedores y otras plagas en tu hogar, comercio o industria. Rápido, efectivo y garantizado.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -40,7 +40,7 @@ const Hero = () => {
               </button>
               <Link to="/servicios" className="btn-outline-gold text-center">Ver Servicios</Link>
             </div>
-            <div className="flex flex-wrap gap-6">
+            <div className="flex flex-wrap gap-6 justify-center sm:justify-start">
               <div className="text-center">
                 <div className="text-3xl font-bold text-yellow-400">100%</div>
                 <div className="text-sm text-gray-400">Trabajos garantizados</div>
@@ -57,9 +57,9 @@ const Hero = () => {
           </div>
 
           {/* --- COLUMNA DE IMÁGENES MODIFICADA --- */}
-          <div className={`order-1 lg:order-2 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+          <div className={`row-start-1 lg:row-auto transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
             {/* Contenedor para las dos imágenes con un efecto de superposición */}
-            <div className="relative h-[500px] lg:h-[600px] flex items-center justify-center">
+            <div className="relative h-[450px] md:h-[500px] lg:h-[600px] flex items-center justify-center">
               {/* Imagen 1 (atrás) */}
               <div
                 className="absolute top-0 left-0 w-3/4 h-3/4 rounded-3xl bg-cover bg-center shadow-2xl border-4 border-primary/20"
@@ -73,10 +73,10 @@ const Hero = () => {
                 aria-label="Hogar protegido y libre de plagas."
               />
               {/* Tarjeta informativa alineada con la imagen de fondo y posicionada abajo */}
-              <div className="absolute bottom-16 left-0 lg:bottom-24 lg:left-0 bg-card/90 backdrop-blur-md p-3 rounded-2xl border border-primary/30 shadow-lg">
+              <div className="absolute bottom-1/4 left-0 lg:bottom-24 lg:left-0 bg-card/90 backdrop-blur-md p-2 lg:p-3 rounded-2xl border border-primary/30 shadow-lg max-w-max">
                 <div className="flex items-center gap-2">
                   <Shield className="text-primary flex-shrink-0" size={20} />
-                  <p className="text-sm font-semibold text-white">Hogares y Comercios Seguros</p>
+                  <p className="text-sm font-semibold text-white whitespace-nowrap">Hogares y Comercios Seguros</p>
                 </div>
               </div>
             </div>
