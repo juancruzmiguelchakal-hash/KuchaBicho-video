@@ -13,10 +13,11 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative overflow-hidden pt-32 md:pt-36 pb-20 bg-background text-white" aria-labelledby="hero-title">
+    <section className="relative overflow-hidden pt-20 md:pt-36 pb-20 bg-background text-white" aria-labelledby="hero-title">
       <div className="w-full mx-auto px-6 sm:px-12 md:px-24 lg:px-32 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+          {/* Contenedor del texto: añadimos padding top solo en móvil (pt-4) */}
+          <div className={`pt-4 lg:pt-0 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <h1 id="hero-title" className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight">
               <span className="text-white">KuchaBicho Fumigaciones</span>
             </h1>
@@ -62,7 +63,7 @@ const Hero = () => {
               />
               {/* Imagen 2 (adelante) */}
               <div
-                className="absolute bottom-0 right-0 w-2/3 h-2/3 rounded-3xl bg-cover bg-center shadow-2xl border-4 border-primary/50"
+                className="absolute bottom-0 right-0 w-1/2 h-1/2 rounded-3xl bg-cover bg-center shadow-2xl border-4 border-primary/50"
                 style={{ backgroundImage: `url(${heroImage2})` }}
                 aria-label="Hogar protegido y libre de plagas."
               />
