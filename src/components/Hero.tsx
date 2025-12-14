@@ -7,29 +7,18 @@ import heroImage1 from '../assets/fumigador-profesional.jpg'; // Imagen de ejemp
 import heroImage2 from '../assets/hero-professionals.jpg'; // Usamos la imagen que ya existe temporalmente
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showBgAnimation, setShowBgAnimation] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
-
-    // Este temporizador eliminará los círculos de animación del DOM después de 2 segundos.
-    // Es una solución más robusta que depender solo de la animación CSS.
-    const timer = setTimeout(() => {
-      setShowBgAnimation(false);
-    }, 2000); // 2 segundos, igual que la duración de la animación
-
-    return () => clearTimeout(timer); // Limpia el temporizador si el componente se desmonta
   }, []);
 
   return (
     <section className="relative overflow-hidden pt-32 md:pt-36 pb-20 bg-gray-950 text-white" aria-labelledby="hero-title">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card/30" />
-      {showBgAnimation && (
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-fade-in-out" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-fade-in-out" style={{ animationDelay: '0.5s' }} />
-        </div>
-      )}
+      <div className="absolute inset-0 opacity-0 animate-fade-in-out">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+      </div>
 
       <div className="w-full mx-auto px-6 sm:px-12 md:px-24 lg:px-32 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

@@ -76,15 +76,14 @@ export default {
           },
         },
         "fade-in-out": {
-          '0%': { opacity: '0' },
-          '50%': { opacity: '1' },
-          '100%': { opacity: '0' },
+          '0%, 100%': { opacity: '0' },
+          '50%': { opacity: '0.2' },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in-out": "fade-in-out 2s ease-in-out forwards",
+        "fade-in-out": "fade-in-out 2.5s ease-out forwards",
       },
     },
   },
