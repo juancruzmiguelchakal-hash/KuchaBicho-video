@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Shield } from 'lucide-react';
 
 // 💥 CORRECCIÓN DE IMAGEN: ELIMINAMOS la importación fallida de src/assets/
 // Ya que la imagen está en public/, la referenciamos directamente.
@@ -36,7 +35,7 @@ const Header = () => {
       className={`fixed top-0 w-full z-40 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-lg shadow-lg border-b border-border/50' : 'bg-transparent'
         }`}
     >
-      <div className="w-full mx-auto px-4 md:px-[50px] py-2 max-h-20 flex items-center justify-between">
+      <div className="w-full mx-auto px-12 md:px-24 lg:px-32 py-2 max-h-20 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex flex-col items-center gap-1 md:flex-row md:items-center md:gap-3">
             <img

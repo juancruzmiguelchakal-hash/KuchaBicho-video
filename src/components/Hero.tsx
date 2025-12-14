@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield } from 'lucide-react';
-import heroImage from '../assets/hero-professionals.jpg';
 
+// 1. Reemplaza estas rutas con tus dos nuevas imágenes
+import heroImage1 from '../assets/fumigador-profesional.jpg'; // Imagen de ejemplo 1
+import heroImage2 from '../assets/hero-professionals.jpg'; // Usamos la imagen que ya existe temporalmente
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+
 
   useEffect(() => {
     setIsVisible(true);
@@ -18,7 +21,7 @@ const Hero = () => {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="w-full mx-auto px-4 md:px-[50px] relative z-10">
+      <div className="w-full mx-auto px-12 md:px-24 lg:px-32 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className={`order-2 lg:order-1 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <h1 id="hero-title" className="text-6xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight">
@@ -53,26 +56,27 @@ const Hero = () => {
             </div>
           </div>
 
+          {/* --- COLUMNA DE IMÁGENES MODIFICADA --- */}
           <div className={`order-1 lg:order-2 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-3xl blur-2xl" />
-              <div className="relative rounded-3xl overflow-hidden border-4 border-primary/30 shadow-2xl">
-                <img
-                  src={heroImage}
-                  alt="Equipo de KuchaBicho Fumigaciones realizando un control de plagas profesional"
-                  className="w-full h-auto object-cover"
-                  width="550" height="600"
-                />
-                <div className="absolute bottom-6 left-6 right-6 bg-card/90 backdrop-blur-md p-4 rounded-2xl border border-primary/30">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                      <Shield className="text-primary" size={24} />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-white">Profesionales Certificados</h3>
-                      <p className="text-sm text-gray-400">Equipos especializados y productos aprobados</p>
-                    </div>
-                  </div>
+            {/* Contenedor para las dos imágenes con un efecto de superposición */}
+            <div className="relative h-[500px] lg:h-[600px] flex items-center justify-center">
+              {/* Imagen 1 (atrás) */}
+              <div
+                className="absolute top-0 left-0 w-3/4 h-3/4 rounded-3xl bg-cover bg-center shadow-2xl border-4 border-primary/20"
+                style={{ backgroundImage: `url(${heroImage1})` }}
+                aria-label="Técnico de fumigación profesional en acción."
+              />
+              {/* Imagen 2 (adelante) */}
+              <div
+                className="absolute bottom-0 right-0 w-2/3 h-2/3 rounded-3xl bg-cover bg-center shadow-2xl border-4 border-primary/50"
+                style={{ backgroundImage: `url(${heroImage2})` }}
+                aria-label="Hogar protegido y libre de plagas."
+              />
+              {/* Tarjeta informativa alineada con la imagen de fondo y posicionada abajo */}
+              <div className="absolute bottom-16 left-0 lg:bottom-24 lg:left-0 bg-card/90 backdrop-blur-md p-3 rounded-2xl border border-primary/30 shadow-lg">
+                <div className="flex items-center gap-2">
+                  <Shield className="text-primary flex-shrink-0" size={20} />
+                  <p className="text-sm font-semibold text-white">Hogares y Comercios Seguros</p>
                 </div>
               </div>
             </div>
