@@ -37,17 +37,17 @@ const Header = () => {
     >
       <div className="w-full mx-auto px-6 sm:px-12 md:px-24 lg:px-32 py-2 max-h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex flex-col items-center gap-1 md:flex-row md:items-center md:gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <img
               src={import.meta.env.BASE_URL + "kuchabichologo.png"}
               alt="Kuchabicho Logo"
               className="w-16 h-16 md:w-20 md:h-20 object-contain transition-transform duration-300 hover:scale-110"
             />
             <div>
-              <span className="text-3xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-yellow-300 block leading-none text-center md:text-left">
+              <span className="text-3xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-yellow-300 block leading-none text-left">
                 Kuchabicho
               </span>
-              <span className="text-sm text-foreground/60 text-center md:text-left">Control de Plagas</span>
+              <span className="text-sm text-foreground/60 text-left">Control de Plagas</span>
             </div>
           </Link>
 
