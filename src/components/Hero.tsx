@@ -7,15 +7,27 @@ import heroImage1 from '../assets/fumigador-profesional.jpg'; // Imagen de ejemp
 import heroImage2 from '../assets/hero-professionals.jpg'; // Usamos la imagen que ya existe temporalmente
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isBgAnimationVisible, setIsBgAnimationVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
+    setIsBgAnimationVisible(true); // Activa la animación de fondo
+
+    // Desactiva la animación de fondo después de 2.5 segundos
+    const timer = setTimeout(() => {
+      setIsBgAnimationVisible(false);
+    }, 2500);
+
+    return () => clearTimeout(timer); // Limpieza del temporizador
   }, []);
 
   return (
     <section className="relative overflow-hidden pt-32 md:pt-36 pb-20 bg-gray-950 text-white" aria-labelledby="hero-title">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card/30" />
-      <div className="absolute inset-0 opacity-0 animate-fade-in-out">
+      <div
+        className="absolute inset-0 transition-opacity duration-1000"
+        style={{ opacity: isBgAnimationVisible ? 0.2 : 0 }}
+      >
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
       </div>
