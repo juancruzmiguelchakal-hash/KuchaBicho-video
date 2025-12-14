@@ -17,8 +17,8 @@ const Hero = () => {
     <section className="relative overflow-hidden pt-32 md:pt-36 pb-20 bg-gray-950 text-white" aria-labelledby="hero-title">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card/30" />
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-fade-in-out" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-fade-in-out" style={{ animationDelay: '0.5s' }} />
       </div>
 
       <div className="w-full mx-auto px-6 sm:px-12 md:px-24 lg:px-32 relative z-10">
@@ -73,10 +73,10 @@ const Hero = () => {
                 aria-label="Hogar protegido y libre de plagas."
               />
               {/* Tarjeta informativa alineada con la imagen de fondo y posicionada abajo */}
-              <div className="absolute bottom-1/4 left-0 lg:bottom-24 lg:left-0 bg-card/90 backdrop-blur-md p-2 lg:p-3 rounded-2xl border border-primary/30 shadow-lg max-w-max">
-                <div className="flex items-center gap-2">
-                  <Shield className="text-primary flex-shrink-0" size={20} />
-                  <p className="text-sm font-semibold text-white whitespace-nowrap">Hogares y Comercios Seguros</p>
+              <div className="absolute bottom-1/4 left-0 lg:bottom-24 lg:left-0 bg-card/90 backdrop-blur-md p-2 rounded-xl md:rounded-2xl border border-primary/30 shadow-lg max-w-max">
+                <div className="flex items-center gap-1.5">
+                  <Shield className="text-primary flex-shrink-0" size={16} />
+                  <p className="text-xs font-semibold text-white whitespace-nowrap">Hogares y Comercios Seguros</p>
                 </div>
               </div>
             </div>
