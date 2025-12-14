@@ -25,7 +25,7 @@ const Hero = () => {
       `}</style>
       {/* 2. Se aplica la animación con el atributo style. */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 hidden md:block"
         style={{ animation: 'fadeInOut 2.5s ease-out forwards' }}
       >
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
