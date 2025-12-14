@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield } from 'lucide-react';
+import { useMediaQuery } from './useMediaQuery';
 
 // 1. Reemplaza estas rutas con tus dos nuevas imágenes
 import heroImage1 from '../assets/fumigador-profesional.jpg'; // Imagen de ejemplo 1
 import heroImage2 from '../assets/hero-professionals.jpg'; // Usamos la imagen que ya existe temporalmente
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 767px)');
 
   useEffect(() => {
     setIsVisible(true);
@@ -15,22 +17,14 @@ const Hero = () => {
   return (
     <section className="relative overflow-hidden pt-32 md:pt-36 pb-20 bg-gray-950 text-white" aria-labelledby="hero-title">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card/30" />
-      {/* --- SOLUCIÓN FINAL: CSS-in-JS --- */}
-      {/* 1. Se inyecta la animación directamente en el <head> del documento. */}
-      <style>{`
-        @keyframes fadeInOut {
-          0%, 100% { opacity: 0; }
-          50% { opacity: 0.2; }
-        }
-      `}</style>
-      {/* 2. Se aplica la animación con el atributo style. */}
-      <div
-        className="absolute inset-0 hidden md:block"
-        style={{ animation: 'fadeInOut 2.5s ease-out forwards' }}
-      >
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-      </div>
+      {/* La animación de fondo solo se renderiza si NO es móvil */}
+      {!isMobile && (
+        <div className="absolute inset-0 opacity-0" style={{ animation: 'fadeInOut 2.5s ease-out forwards' }}>
+          <style>{`@keyframes fadeInOut { 0%, 100% { opacity: 0; } 50% { opacity: 0.2; } }`}</style>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        </div>
+      )}
 
       <div className="w-full mx-auto px-6 sm:px-12 md:px-24 lg:px-32 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
