@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Bug, Rat, Building2, Sparkles, SprayCan, FileText } from 'lucide-react';
+import { Bug, SprayCan, Rat, CloudRain, Bird, Archive, Leaf } from 'lucide-react';
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -70,7 +70,7 @@ const ServiceCard = ({ icon, title, description, price, onLearnMore }: ServiceCa
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="text-primary mb-4 transform transition-transform duration-300 group-hover:scale-110">
+      <div className="mb-4 transform transition-transform duration-300 group-hover:scale-110">
         {icon}
       </div>
       <h3 className="text-3xl font-heading font-bold text-foreground mb-3">{title}</h3>
@@ -86,6 +86,8 @@ const ServiceCard = ({ icon, title, description, price, onLearnMore }: ServiceCa
   );
 };
 
+// Services constant is now local or passed, but let's keep the card structure.
+
 interface ServicesProps {
   onOpenModal: (serviceId: string) => void;
 }
@@ -94,56 +96,74 @@ const Services = ({ onOpenModal }: ServicesProps) => {
   return (
     <section id="servicios" className="py-20 bg-gradient-to-b from-background to-card/60 w-full">
       <div className="w-full mx-auto px-4 md:px-[50px]">
-        <div className="text-center mb-12">
-          <h2 className="section-title">Nuestros Servicios</h2>
-          <p className="text-2xl text-foreground/70 max-w-2xl mx-auto mt-4">
-            Soluciones profesionales adaptadas a cada necesidad
+        <div className="text-center mb-16 animate-fade-in-up">
+          <span className="text-primary font-semibold text-sm uppercase tracking-wider mb-2 block">
+            Nuestros Servicios
+          </span>
+          <h2 className="text-3xl md:text-5xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-yellow-300 mb-4">
+            Soluciones Integrales
+          </h2>
+          <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+            Protegemos tu hogar y empresa con tecnología avanzada y personal certificado.
           </p>
-
-          {/* Invoice A and B Notice */}
-          <div className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-primary/10 border border-primary/30 rounded-full">
-            <FileText className="text-primary" size={20} />
-            <span className="text-primary font-semibold text-lg">
-              Emitimos Factura A y Factura B
-            </span>
-          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           <ServiceCard
-            icon={<Rat size={48} />}
+            icon={<SprayCan size={48} className="text-yellow-400 stroke-[1.5]" />}
+            title="Desinfección"
+            description="Eliminación de virus y bacterias para un ambiente seguro."
+            price="$35.000"
+            onLearnMore={() => onOpenModal('desinfeccion')}
+          />
+          <ServiceCard
+            icon={<Bug size={48} className="text-yellow-400 stroke-[1.5]" />}
+            title="Desinsectación"
+            description="Control efectivo de todo tipo de insectos rastreros y voladores."
+            price="$40.000"
+            onLearnMore={() => onOpenModal('desinsectacion')}
+          />
+          <ServiceCard
+            icon={<Rat size={48} className="text-yellow-400 stroke-[1.5]" />}
             title="Desratización"
-            description="Eliminación efectiva de roedores con métodos seguros y garantizados."
-            price="$55.000 Precio desde"
+            description="Eliminación segura y garantizada de roedores."
+            price="$45.000"
             onLearnMore={() => onOpenModal('desratizacion')}
           />
           <ServiceCard
-            icon={<SprayCan size={48} />}
+            icon={<CloudRain size={48} className="text-yellow-400 stroke-[1.5]" />}
             title="Fumigación"
-            description="Fumigación profesional para hogares y empresas con productos de calidad."
-            price="$50.000 Precio desde"
+            description="Servicio general de fumigación preventiva y correctiva."
+            price="$38.000"
             onLearnMore={() => onOpenModal('fumigacion')}
           />
           <ServiceCard
-            icon={<Bug size={48} />}
-            title="Insecticidas"
-            description="Aplicación profesional de insecticidas para eliminar todo tipo de plagas."
-            price="$35.000 Precio desde"
-            onLearnMore={() => onOpenModal('insecticidas')}
+            icon={<img src="/docs/assets/fotomurcielago.png" alt="Control de murciélagos" className="w-12 h-12 object-contain" />}
+            title="Control de murciélagos"
+            description="Erradicación ética y segura de colonias de murciélagos."
+            price="$75.000"
+            onLearnMore={() => onOpenModal('murcielagos')}
           />
           <ServiceCard
-            icon={<Sparkles size={48} />}
-            title="Sanitización"
-            description="Desinfección profunda de espacios para eliminar virus, bacterias y hongos."
-            price="$50.000 Precio desde"
-            onLearnMore={() => onOpenModal('sanitizacion')}
+            icon={<Bird size={48} className="text-yellow-400 stroke-[1.5]" />}
+            title="Control de aves"
+            description="Soluciones para evitar el anidamiento y presencia de aves."
+            price="$60.000"
+            onLearnMore={() => onOpenModal('aves')}
           />
           <ServiceCard
-            icon={<Building2 size={48} />}
-            title="Fumigación Comercial"
-            description="Servicios especializados para empresas, hoteles y comercios."
-            price="Consultar"
-            onLearnMore={() => onOpenModal('comercial')}
+            icon={<Archive size={48} className="text-yellow-400 stroke-[1.5]" />}
+            title="Control de abejas"
+            description="Manejo seguro de panales y enjambres de abejas."
+            price="$55.000"
+            onLearnMore={() => onOpenModal('abejas')}
+          />
+          <ServiceCard
+            icon={<Leaf size={48} className="text-yellow-400 stroke-[1.5]" />}
+            title="Espacios verdes"
+            description="Control de plagas en jardines y espacios vegetales."
+            price="$50.000"
+            onLearnMore={() => onOpenModal('vegetales')}
           />
         </div>
       </div>

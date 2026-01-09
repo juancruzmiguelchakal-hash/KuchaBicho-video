@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Send, MessageCircle, Sparkles, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 // Configuración del backend API
@@ -127,7 +127,7 @@ const Contact = () => {
 
       // Fallback: Si no hay token CSRF (backend no disponible), usar FormSubmit
       const formDataObj = new FormData(form);
-      const response = await fetch('https://formsubmit.co/ajax/myvisioncraftai@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/kuchabicho@gmail.com', {
         method: 'POST',
         body: formDataObj,
       });
@@ -212,14 +212,17 @@ const Contact = () => {
               >
                 {/* ===== CAMPOS DE SEGURIDAD OCULTOS ===== */}
 
-                {/* CAPTCHA - FormSubmit mostrará su CAPTCHA */}
-                <input type="hidden" name="_captcha" value="true" />
+                {/* CAPTCHA desactivado según pedido */}
+                <input type="hidden" name="_captcha" value="false" />
 
                 {/* Template de email */}
                 <input type="hidden" name="_template" value="table" />
 
+                {/* Control de copias (CC) */}
+                <input type="hidden" name="_cc" value="kuchabicho@gmail.com" />
+
                 {/* Asunto del email */}
-                <input type="hidden" name="_subject" value="Nuevo mensaje de contacto - Kuchabicho" />
+                <input type="hidden" name="_subject" value="Nuevo Pedido Kuchabicho" />
 
                 {/**
                  * HONEYPOT ANTI-BOT
@@ -381,7 +384,7 @@ const Contact = () => {
                 </div>
 
                 <h3 className="text-4xl font-heading font-bold text-white mb-4">
-                ¿Necesitás una respuesta rápida?
+                  ¿Necesitás una respuesta rápida?
                 </h3>
 
                 <p className="text-white/90 mb-2 text-xl font-medium">
@@ -389,7 +392,7 @@ const Contact = () => {
                 </p>
 
                 <p className="text-white/70 mb-8 leading-relaxed text-lg">
-                 Escribinos y recibí asesoramiento profesional, coordinación rápida del servicio y una solución efectiva contra plagas.
+                  Escribinos y recibí asesoramiento profesional, coordinación rápida del servicio y una solución efectiva contra plagas.
                 </p>
 
                 <button
@@ -407,7 +410,7 @@ const Contact = () => {
                 </button>
 
                 <p className="text-white/50 text-base mt-4 text-center">
-                  Atención 24/7 para urgencias
+                  Respuesta inmediata
                 </p>
               </div>
             </div>
