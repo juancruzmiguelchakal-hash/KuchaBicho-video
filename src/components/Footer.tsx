@@ -14,7 +14,7 @@ const Footer = () => {
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center justify-start gap-3 mb-4">
               <img
-                src="/docs/assets/logo-animado.gif"
+                src="/assets/logo-animado.gif"
                 className="w-10 h-10 object-contain"
                 alt="Logo Animado"
               />
@@ -91,7 +91,7 @@ const Footer = () => {
                 <i className="fab fa-cc-visa" title="Visa"></i>
                 <i className="fab fa-cc-mastercard" title="Mastercard"></i>
                 <i className="fas fa-hand-holding-dollar" title="Mercado Pago"></i> {/* Using generic icon for MP */}
-                <img src="/docs/assets/mp.png" alt="Mercado Pago" className="h-8 w-auto object-contain" />
+                <img src="/assets/mercadopago.png" alt="Mercado Pago" className="h-8 w-auto object-contain" />
               </div>
             </div>
           </div>

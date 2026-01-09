@@ -138,7 +138,7 @@ const Services = ({ onOpenModal }: ServicesProps) => {
             onLearnMore={() => onOpenModal('fumigacion')}
           />
           <ServiceCard
-            icon={<img src="/docs/assets/fotomurcielago.png" alt="Control de murciélagos" className="w-12 h-12 object-contain" />}
+            icon={<img src="/assets/fotomurcielago.png" alt="Control de murciélagos" className="w-12 h-12 object-contain" />}
             title="Control de murciélagos"
             description="Erradicación ética y segura de colonias de murciélagos."
             price="$75.000"

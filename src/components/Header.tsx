@@ -39,7 +39,7 @@ const Header = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
           <img
-            src="/docs/assets/logo-animado.gif"
+            src="/assets/logo-animado.gif"
             className="w-16 h-16 md:w-20 md:h-20 object-contain"
             alt="Logo Animado"
           />
