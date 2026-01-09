@@ -91,7 +91,7 @@ const Footer = () => {
                 <i className="fab fa-cc-visa" title="Visa"></i>
                 <i className="fab fa-cc-mastercard" title="Mastercard"></i>
                 <i className="fas fa-hand-holding-dollar" title="Mercado Pago"></i> {/* Using generic icon for MP */}
-                <img src="/assets/mercadopago.png" alt="Mercado Pago" className="h-8 w-auto object-contain" />
+                <img src="/assets/mp.png" alt="Mercado Pago" className="h-8 w-auto object-contain" />
               </div>
             </div>
           </div>
