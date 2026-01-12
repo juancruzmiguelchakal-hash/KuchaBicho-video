@@ -14,7 +14,7 @@ const Footer = () => {
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center justify-start gap-3 mb-4">
               <img
-                src="/assets/logo-animado.gif"
+                src="/assets/logofooter.gif"
                 className="w-10 h-10 object-contain"
                 alt="Logo Animado"
               />
