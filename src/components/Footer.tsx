@@ -81,7 +81,7 @@ const Footer = () => {
             </ul>
             <div className="mt-4">
               <p className="text-foreground/60 text-base">Tel: +54 9 11 4405-1154</p>
-              <a href="mailto:kuchabicho@gmail.com" className="text-foreground/60 hover:text-primary text-base block mt-1">kuchabicho@gmail.com</a>
+              <img src="/assets/mailto.png" alt="Dirección de correo de KuchaBicho" className="mt-4 h-8" />
             </div>
 
             {/* Medios de Pago */}

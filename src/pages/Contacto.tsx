@@ -23,8 +23,6 @@ const Contacto = () => {
       "longitude": "-58.404"
     },
     "url": "https://www.kuchabicho.com/contacto",
-    "telephone": "+5491144051154",
-    "email": "kuchabicho@gmail.com",
     "priceRange": "$$",
     "openingHoursSpecification": [
       {

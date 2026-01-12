@@ -1,9 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Send, MessageCircle, Sparkles, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
-// Configuración del backend API
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-
 // Tipos para el estado del formulario
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
@@ -18,7 +15,6 @@ const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [formStatus, setFormStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
-  const [csrfToken, setCsrfToken] = useState('');
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -33,114 +29,61 @@ const Contact = () => {
   }, []);
 
   /**
-   * CSRF TOKEN FETCHING
-   * ===================
-   * Obtiene el token CSRF del backend al cargar el componente
+   * WHATSAPP OBFUSCATION
+   * ======================
+   * The number is split to prevent bots from scraping it directly.
+   * It's assembled only when the user clicks the button.
    */
-  useEffect(() => {
-    const fetchCsrfToken = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/csrf-token`, {
-          method: 'GET',
-          credentials: 'include', // Importante para cookies
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setCsrfToken(data.csrfToken);
-        }
-      } catch (error) {
-        console.error('Error obteniendo CSRF token:', error);
-        // Si falla el backend, seguir usando FormSubmit como fallback
-      }
-    };
-
-    fetchCsrfToken();
-  }, []);
-
-  /**
-   * WHATSAPP - IMPORTANTE:
-   * El número configurado es: +54 9 11 4405-1154
-   * Se ha optimizado el mensaje pre-cargado para ser más específico.
-   */
-  const WHATSAPP_NUMBER = '5491144051154';
-
   const handleWhatsApp = useCallback(() => {
+    const part1 = '54911';
+    const part2 = '4405';
+    const part3 = '1154';
+    const fullNumber = `${part1}${part2}${part3}`;
     const message = '¡Hola KuchaBicho! Necesito una cotización para un servicio de fumigación y control de plagas. ¿Podrían ayudarme?';
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://wa.me/${fullNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   }, []);
 
   /**
-   * FORM SUBMISSION HANDLER
-   * =======================
-   * Envía el formulario al backend seguro con token CSRF
-   * Si el backend no está disponible, usa FormSubmit como fallback
+   * FORM SUBMISSION HANDLER (FORMSUBMIT ONLY)
+   * ==========================================
+   * Sends the form data to FormSubmit using a secure, non-email URL.
    */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus('loading');
     setErrorMessage('');
 
-    // Obtener el valor del honeypot
     const form = e.currentTarget;
-    const honeypotValue = (form.elements.namedItem('_honeypot') as HTMLInputElement)?.value;
+    const formDataObj = new FormData(form);
 
-    // Si el honeypot tiene valor, es un bot - simular éxito
-    if (honeypotValue) {
-      console.warn('🤖 Bot detectado via honeypot');
-      setFormStatus('success');
+    // Basic honeypot check on the client side
+    if (formDataObj.get('_honey')) {
+      console.warn('🤖 Bot detected via honeypot');
+      setFormStatus('success'); // Fail silently
       return;
     }
 
     try {
-      // Intentar enviar al backend seguro primero
-      if (csrfToken) {
-        const response = await fetch(`${API_BASE_URL}/api/contact`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-csrf-token': csrfToken,
-          },
-          credentials: 'include',
-          body: JSON.stringify({
-            ...formData,
-            _honeypot: honeypotValue, // Incluir para validación del servidor
-          }),
-        });
+      // ❗ CRITICAL: Replace with your secret FormSubmit URL to hide your email
+      const formSubmitUrl = 'https://formsubmit.co/ajax/YOUR_SECRET_URL_HERE';
 
-        const data = await response.json();
-
-        if (response.ok) {
-          setFormStatus('success');
-          setFormData({ name: '', email: '', message: '', phone: '' });
-          return;
-        } else {
-          // Si hay errores de validación, mostrarlos
-          if (data.errors) {
-            setErrorMessage(data.errors.map((e: any) => e.message).join('. '));
-          } else {
-            setErrorMessage(data.error || 'Error al enviar el mensaje');
-          }
-          setFormStatus('error');
-          return;
-        }
-      }
-
-      // Fallback: Si no hay token CSRF (backend no disponible), usar FormSubmit
-      const formDataObj = new FormData(form);
-      const response = await fetch('https://formsubmit.co/ajax/kuchabicho@gmail.com', {
+      const response = await fetch(formSubmitUrl, {
         method: 'POST',
         body: formDataObj,
+        headers: {
+          'Accept': 'application/json'
+        }
       });
 
       if (response.ok) {
         setFormStatus('success');
         setFormData({ name: '', email: '', message: '', phone: '' });
       } else {
-        throw new Error('Error al enviar');
+        throw new Error('El envío del formulario falló.');
       }
     } catch (error) {
       console.error('Error enviando formulario:', error);
-      setErrorMessage('Error de conexión. Por favor, intenta nuevamente.');
+      setErrorMessage('Error de conexión. Por favor, intenta nuevamente o contáctanos por WhatsApp.');
       setFormStatus('error');
     }
   };
@@ -166,12 +109,11 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
-          {/* Formulario con seguridad mejorada - 3 columnas */}
+          {/* Formulario con seguridad mejorada */}
           <div
             className={`lg:col-span-7 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
           >
             <div className="bg-card/60 backdrop-blur-xl p-8 md:p-10 rounded-3xl border border-border/50 shadow-2xl relative overflow-hidden">
-              {/* Efectos de fondo animados */}
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl animate-pulse" />
               <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
@@ -182,7 +124,6 @@ const Contact = () => {
                 Nuestro equipo de expertos en fumigación te contactará a la brevedad.
               </p>
 
-              {/* Mensaje de éxito */}
               {formStatus === 'success' && (
                 <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-2xl flex items-center gap-3 relative z-10">
                   <CheckCircle className="text-green-500" size={24} />
@@ -190,7 +131,6 @@ const Contact = () => {
                 </div>
               )}
 
-              {/* Mensaje de error */}
               {formStatus === 'error' && (
                 <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-2xl flex items-center gap-3 relative z-10">
                   <AlertCircle className="text-red-500" size={24} />
@@ -198,58 +138,27 @@ const Contact = () => {
                 </div>
               )}
 
-              {/**
-               * FORMULARIO SEGURO
-               * =================
-               * - CAPTCHA habilitado via FormSubmit
-               * - Honeypot anti-bot
-               * - CSRF token en headers (no en form)
-               */}
               <form
                 onSubmit={handleSubmit}
                 className="space-y-6 relative z-10"
                 aria-labelledby="form-title"
               >
-                {/* ===== CAMPOS DE SEGURIDAD OCULTOS ===== */}
+                {/* ===== CAMPOS DE SEGURIDAD OCULTOS PARA FORMSUBMIT ===== */}
+                
+                {/* ❗ CRITICAL: Reemplazar por la URL a la que quieres redirigir al usuario después de un envío exitoso. */}
+                <input type="hidden" name="_next" value="https://your-domain.co/thank-you.html" />
 
-                {/* CAPTCHA desactivado según pedido */}
-                <input type="hidden" name="_captcha" value="false" />
-
-                {/* Template de email */}
-                <input type="hidden" name="_template" value="table" />
-
-                {/* Control de copias (CC) */}
-                <input type="hidden" name="_cc" value="kuchabicho@gmail.com" />
-
+                {/* HONEYPOT: Campo anti-bots. Déjalo como está. */}
+                <input type="text" name="_honey" style={{ display: 'none' }} />
+                
+                {/* CAPTCHA: FormSubmit usa Google reCAPTCHA por defecto. No se necesita el campo para activarlo. */}
+                {/* Para desactivarlo (no recomendado), añade: <input type="hidden" name="_captcha" value="false" /> */}
+                
                 {/* Asunto del email */}
-                <input type="hidden" name="_subject" value="Nuevo Pedido Kuchabicho" />
+                <input type="hidden" name="_subject" value="Nuevo Pedido de Presupuesto - KuchaBicho" />
 
-                {/**
-                 * HONEYPOT ANTI-BOT
-                 * =================
-                 * Campo oculto que los bots llenan automáticamente
-                 * Si tiene contenido, el servidor rechaza el envío
-                 */}
-                <input
-                  type="text"
-                  name="_honeypot"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  style={{
-                    position: 'absolute',
-                    left: '-9999px',
-                    top: '-9999px',
-                    opacity: 0,
-                    height: 0,
-                    width: 0,
-                    zIndex: -1,
-                  }}
-                />
 
-                {/* Input Nombre con Tilt 3D */}
-                <div
-                  className={`transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                >
+                <div className={`transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-2 cursor-pointer">
                     Nombre completo
                   </label>
@@ -269,10 +178,7 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Input Email con Tilt 3D */}
-                <div
-                  className={`transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                >
+                <div className={`transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                   <label htmlFor="email" className="block text-sm font-medium text-foreground/80 mb-2 cursor-pointer">
                     Email
                   </label>
@@ -291,11 +197,8 @@ const Contact = () => {
                     placeholder="ejemplo@email.com"
                   />
                 </div>
-
-                {/* Input Teléfono (opcional) con Tilt 3D */}
-                <div
-                  className={`transition-all duration-700 delay-450 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                >
+                
+                <div className={`transition-all duration-700 delay-450 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                   <label htmlFor="phone" className="block text-sm font-medium text-foreground/80 mb-2 cursor-pointer">
                     Teléfono <span className="text-foreground/40">(opcional)</span>
                   </label>
@@ -314,10 +217,7 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Textarea Mensaje con Tilt 3D */}
-                <div
-                  className={`transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                >
+                <div className={`transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground/80 mb-2 cursor-pointer">
                     Mensaje
                   </label>
@@ -337,7 +237,6 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Botón Submit con Tilt 3D extremo */}
                 <div className={`transition-all duration-700 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                   <button
                     type="submit"
@@ -369,12 +268,11 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* WhatsApp Card con Tilt 3D - 2 columnas */}
+          {/* WhatsApp Card */}
           <div
             className={`lg:col-span-5 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
           >
             <div className="bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 p-8 md:p-10 rounded-3xl shadow-2xl h-full flex flex-col justify-center relative overflow-hidden">
-              {/* Efectos de fondo */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-black/10 rounded-full blur-2xl pointer-events-none" />
 

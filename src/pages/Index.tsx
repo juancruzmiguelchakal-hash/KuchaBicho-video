@@ -26,8 +26,6 @@ const Index = () => {
       "longitude": "-58.404"
     },
     "url": "https://www.kuchabicho.com",
-    "telephone": "+5491144051154",
-    "email": "kuchabicho@gmail.com",
     "priceRange": "$$",
     "openingHoursSpecification": [
       {
