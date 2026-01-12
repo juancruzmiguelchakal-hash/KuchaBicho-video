@@ -7,12 +7,28 @@ const Nosotros = () => {
   return (
     <>
       <Helmet>
-        <title>Sobre KuchaBicho Fumigaciones | Expertos en Control de Plagas</title>
-        <meta name="description" content="Conocé a KuchaBicho Fumigaciones. Somos un equipo de profesionales con amplia trayectoria en fumigación profesional y control de plagas, comprometidos con tu seguridad." />
+        <title>Sobre KuchaBicho Fumigaciones | Expertos en Control de Plagas Lomas de Zamora</title>
+        <meta 
+          name="description" 
+          content="Conocé a KuchaBicho Fumigaciones. Somos un equipo de profesionales con amplia trayectoria en fumigación profesional y control de plagas en Lomas de Zamora. Empresa habilitada bajo el Ministerio de Asuntos Agrarios de la Provincia de Buenos Aires." 
+        />
+        <meta name="keywords" content="fumigación profesional Lomas de Zamora, empresa fumigación habilitada, control plagas certificado, fumigador zona sur Buenos Aires, certificados municipales fumigación" />
         <link rel="canonical" href="https://www.kuchabicho.com/nosotros" />
+        
+        {/* Open Graph */}
         <meta property="og:title" content="Sobre KuchaBicho Fumigaciones | Expertos en Control de Plagas" />
-        <meta property="og:description" content="Somos un equipo de profesionales con amplia trayectoria en fumigación profesional y control de plagas." />
+        <meta property="og:description" content="Somos un equipo de profesionales con amplia trayectoria en fumigación profesional y control de plagas. Empresa habilitada y certificada." />
         <meta property="og:url" content="https://www.kuchabicho.com/nosotros" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.kuchabicho.com/assets/kuchabichologo.png" />
+        <meta property="og:site_name" content="KuchaBicho Fumigaciones" />
+        <meta property="og:locale" content="es_AR" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Sobre KuchaBicho Fumigaciones | Expertos en Control de Plagas" />
+        <meta name="twitter:description" content="Somos un equipo de profesionales con amplia trayectoria en fumigación profesional y control de plagas." />
+        <meta name="twitter:image" content="https://www.kuchabicho.com/assets/kuchabichologo.png" />
       </Helmet>
 
       {/* Hero Section */}

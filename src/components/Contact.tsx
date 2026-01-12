@@ -416,6 +416,57 @@ const Contact = () => {
             </div>
           </div>
         </div>
+
+        {/* Sección "Dónde encontrarnos" con mapa */}
+        <div className={`max-w-6xl mx-auto mt-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          <h3 className="text-4xl md:text-5xl font-heading font-bold text-center text-foreground mb-8">
+            Dónde encontrarnos
+          </h3>
+          
+          <div className="bg-card/60 backdrop-blur-xl rounded-3xl border border-border/50 shadow-2xl overflow-hidden relative">
+            {/* Mapa interactivo de Google Maps */}
+            <div className="relative w-full" style={{ paddingBottom: '56.25%', height: 0 }}>
+              <iframe
+                src="https://www.google.com/maps?q=Boedo+266,+Galería+Centerlom,+Local+20,+Lomas+de+Zamora+Centro,+Buenos+Aires,+Argentina&output=embed&zoom=15"
+                width="100%"
+                height="100%"
+                style={{ position: 'absolute', top: 0, left: 0, border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Ubicación de KuchaBicho Fumigaciones - Boedo 266, Galería Centerlom, Local 20, Lomas de Zamora Centro, Buenos Aires, Argentina"
+                aria-label="Mapa interactivo mostrando la ubicación de KuchaBicho Fumigaciones"
+              />
+            </div>
+            
+            {/* Información de dirección y botón */}
+            <div className="p-6 md:p-8 bg-background/40 backdrop-blur-sm">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex-1 text-center md:text-left">
+                  <p className="text-foreground/90 text-lg font-medium mb-2">
+                    Boedo 266, Galería Centerlom, Local 20
+                  </p>
+                  <p className="text-foreground/70 text-base">
+                    Lomas de Zamora Centro, Buenos Aires, Argentina
+                  </p>
+                </div>
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=Boedo+266,+Galería+Centerlom,+Local+20,+Lomas+de+Zamora+Centro,+Buenos+Aires,+Argentina"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-gold px-6 py-3 rounded-xl font-semibold text-base flex items-center gap-2 hover:scale-105 transition-transform duration-300 whitespace-nowrap"
+                  aria-label="Abrir Google Maps con indicaciones para llegar a KuchaBicho Fumigaciones"
+                >
+                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Cómo llegar
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* CSS para animación del gradiente del botón */}
