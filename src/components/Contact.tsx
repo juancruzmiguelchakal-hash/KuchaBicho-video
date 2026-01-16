@@ -104,7 +104,7 @@ const Contact = () => {
           </div>
           <h2 className="section-title">Solicitá tu Fumigación Profesional</h2>
           <p className="text-2xl text-foreground/70 max-w-3xl mx-auto mt-4">
-            ¿Problemas con cucarachas, roedores u otras plagas? KuchaBicho Fumigaciones te ofrece una solución rápida y definitiva. Completá el formulario o contactanos por WhatsApp para una respuesta inmediata.
+            ¿Problemas con cucarachas, roedores u otras plagas? Kuchabicho Fumigaciones te ofrece una solución rápida y definitiva. Completá el formulario o contactanos por WhatsApp para una respuesta inmediata.
           </p>
         </div>
 
@@ -286,7 +286,7 @@ const Contact = () => {
                 </h3>
 
                 <p className="text-white/90 mb-2 text-xl font-medium">
-                  En KuchaBicho Fumigaciones estamos listos para ayudarte.
+                  En Kuchabicho Fumigaciones estamos listos para ayudarte.
                 </p>
 
                 <p className="text-white/70 mb-8 leading-relaxed text-lg">

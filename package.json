@@ -2,8 +2,8 @@
   "name": "kuchabicho-fumigaciones-web",
   "private": true,
   "version": "1.0.0",
-  "description": "Sitio web profesional para KuchaBicho Fumigaciones, expertos en control de plagas.",
-  "author": "KuchaBicho",
+  "description": "Sitio web profesional para Kuchabicho Fumigaciones, expertos en control de plagas.",
+  "author": "Kuchabicho",
   "type": "module",
   "scripts": {
     "dev": "vite",

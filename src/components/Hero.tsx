@@ -19,7 +19,7 @@ const Hero = () => {
           {/* Contenedor del texto: añadimos padding top solo en móvil (pt-4) */}
           <div className={`pt-4 lg:pt-0 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <h1 id="hero-title" className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight">
-              <span className="text-white">KuchaBicho Fumigaciones</span>
+              <span className="text-white">Kuchabicho Fumigaciones</span>
             </h1>
             <p className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-yellow-300 to-primary">
               Si hay invasión, Kuchabicho es la solución.

@@ -90,7 +90,7 @@ const WhyChooseUs = () => {
             </h2>
 
             <p className="text-lg text-foreground/70 mb-8 leading-relaxed">
-              En KuchaBicho Fumigaciones nos dedicamos al <strong>control de plagas</strong>, brindando un servicio profesional, seguro y confiable para hogares, comercios e industrias.
+              En Kuchabicho Fumigaciones nos dedicamos al <strong>control de plagas</strong>, brindando un servicio profesional, seguro y confiable para hogares, comercios e industrias.
             </p>
 
             <div className="space-y-4">

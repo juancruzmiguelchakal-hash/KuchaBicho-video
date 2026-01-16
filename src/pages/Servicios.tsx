@@ -26,7 +26,7 @@ const Servicios = () => {
     "serviceType": "Fumigación y Control de Plagas",
     "provider": {
       "@type": "LocalBusiness",
-      "name": "KuchaBicho Fumigaciones",
+      "name": "Kuchabicho Fumigaciones",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Boedo 266, Galería Centerlom, Local 20",
@@ -100,7 +100,7 @@ const Servicios = () => {
   return (
     <>
       <Helmet>
-        <title>Servicios de Fumigación KuchaBicho | Desinsectación, Desratización, Desinfección</title>
+        <title>Servicios de Fumigación Kuchabicho | Desinsectación, Desratización, Desinfección</title>
         <meta 
           name="description" 
           content="Servicios profesionales de fumigación y control de plagas en Lomas de Zamora: desinsectación, desratización, desinfección, control de murciélagos, aves y abejas. Presupuesto gratis." 
