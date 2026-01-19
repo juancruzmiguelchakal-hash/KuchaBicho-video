@@ -221,7 +221,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
           <div className="mb-6">
             <h3 className="text-2xl font-bold flex items-center gap-2 mb-2">
-              <Calculator className="text-primary" /> Calculadora
+              <Calculator className="text-primary" /> Cotizadora
             </h3>
             <p className="text-sm text-foreground/60">Seleccioná el tamaño para ver el precio estimado.</p>
           </div>
