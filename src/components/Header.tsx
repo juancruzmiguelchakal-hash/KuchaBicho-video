@@ -52,7 +52,7 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -67,7 +67,7 @@ const Header = () => {
           ))}
           <button
             onClick={() => window.open('https://wa.me/5491144051154', '_blank')}
-            className="btn-gold flex items-center gap-2"
+            className="bg-[#25D366] text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-[#20BA5C] hover:scale-105 hover:shadow-lg flex items-center gap-2"
             aria-label="Contactar por WhatsApp"
           >
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden text-primary"
+          className="lg:hidden text-primary"
           aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
         >
           <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -95,7 +95,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-card/95 backdrop-blur-lg border-t border-border">
+        <div className="lg:hidden bg-card/95 backdrop-blur-lg border-t border-border">
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
@@ -112,7 +112,7 @@ const Header = () => {
             ))}
             <button
               onClick={() => window.open('https://wa.me/5491144051154', '_blank')}
-              className="btn-gold text-center flex items-center justify-center gap-2"
+              className="bg-[#25D366] text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-[#20BA5C] hover:scale-105 hover:shadow-lg text-center flex items-center justify-center gap-2"
               aria-label="Contactar por WhatsApp"
             >
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">

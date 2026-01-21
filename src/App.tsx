@@ -17,18 +17,52 @@ const queryClient = new QueryClient();
 
 const App = () => {
   useEffect(() => {
-    const hideLoader = () => {
+    // Manejo del Preloader
+    const handleLoad = () => {
       const preloader = document.getElementById('preloader');
       if (preloader) {
-        preloader.classList.add('preloader-hidden');
+        setTimeout(() => {
+          preloader.classList.add('preloader-hidden');
+        }, 500);
       }
     };
 
-    // Espera a que toda la página (imágenes, scripts, etc.) esté completamente cargada.
-    window.onload = () => {
-      // Damos un pequeño respiro para que la transición sea suave.
-      setTimeout(hideLoader, 500);
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
     }
+
+    // Inyectar Calendly Widget
+    const link = document.createElement('link');
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    script.onload = () => {
+      // @ts-ignore
+      if (window.Calendly) {
+        // @ts-ignore
+        window.Calendly.initBadgeWidget({
+          url: 'https://calendly.com/beepbeepdeliverygroupsv/30min?primary_color=a4b026',
+          text: 'Agenda tu visita',
+          color: '#D9AE30',
+          textColor: '#000000',
+          branding: true
+        });
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      window.removeEventListener('load', handleLoad);
+      // Limpieza opcional del script si fuera necesario, pero el widget suele ser persistente
+      if (document.head.contains(link)) document.head.removeChild(link);
+      // No removemos el script para evitar recargas innecesarias en navegación interna
+    };
   }, []);
 
   return (
@@ -41,13 +75,13 @@ const App = () => {
           {/* La etiqueta <main> es semánticamente importante para el contenido principal */}
           {/* El padding top (pt-28) asegura que el contenido no quede oculto por el Header fijo */}
           <main className="pt-28">
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/nosotros" element={<Nosotros />} />
-                <Route path="/servicios" element={<Servicios />} />
-                <Route path="/contacto" element={<Contacto />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/nosotros" element={<Nosotros />} />
+              <Route path="/servicios" element={<Servicios />} />
+              <Route path="/contacto" element={<Contacto />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </main>
         </BrowserRouter>
       </TooltipProvider>

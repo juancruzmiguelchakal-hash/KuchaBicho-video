@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X, CheckCircle2, Clock, Shield, FileText, Calculator, AlertTriangle, Loader2, CircleDollarSign, Send } from 'lucide-react';
+import { X, CheckCircle2, Clock, Shield, FileText, Calculator, AlertTriangle, Loader2, Send } from 'lucide-react';
 
 interface ServiceModalProps {
   isOpen: boolean;
@@ -90,6 +90,9 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
     email: '',
     message: '',
     spaceType: '',
+    locality: '',
+    street: '',
+    number: '',
   });
   const [estimatedPrice, setEstimatedPrice] = useState<number | null>(null);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -111,7 +114,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
   useEffect(() => {
     if (!isOpen) {
-      setFormData({ name: '', phone: '', email: '', message: '', spaceType: '' });
+      setFormData({ name: '', phone: '', email: '', message: '', spaceType: '', locality: '', street: '', number: '' });
       setEstimatedPrice(null);
       setSubmitStatus('idle');
     }
@@ -149,7 +152,10 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
       if (response.ok) {
         setSubmitStatus('success');
-        setTimeout(() => onClose(), 2500);
+        setTimeout(() => {
+          onClose();
+          window.location.href = 'https://calendly.com/beepbeepdeliverygroupsv/30min';
+        }, 1500);
       } else {
         setSubmitStatus('error');
       }
@@ -214,7 +220,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
         </div>
 
         {/* Right Column: Calculator & Form */}
-        <div className="md:w-1/2 p-8 relative">
+        <div className="md:w-1/2 p-8 pb-32 relative">
           <button onClick={onClose} className="hidden md:block absolute top-4 right-4 p-2 hover:bg-black/5 rounded-full transition-colors">
             <X size={24} className="text-foreground/50" />
           </button>
@@ -269,6 +275,21 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
               <input type="email" name="email" placeholder="Email" required
                 className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                 value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
+            </div>
+
+            {/* Address Fields */}
+            <div>
+              <input type="text" name="locality" placeholder="Localidad" required
+                className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                value={formData.locality} onChange={e => setFormData({ ...formData, locality: e.target.value })} />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <input type="text" name="street" placeholder="Calle" required
+                className="col-span-1 sm:col-span-2 w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                value={formData.street} onChange={e => setFormData({ ...formData, street: e.target.value })} />
+              <input type="text" name="number" placeholder="Altura" required
+                className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                value={formData.number} onChange={e => setFormData({ ...formData, number: e.target.value })} />
             </div>
             <div>
               <textarea name="message" placeholder="¿Algún detalle adicional?" rows={2}

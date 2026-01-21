@@ -9,25 +9,31 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Kucha Bicho Luxury Design System - Black & Gold */
-    --background: 0 0% 4.3%; /* #0B0B0B Negro profundo */
-    --foreground: 0 0% 96.1%; /* #F5F5F5 Blanco texto */
+    --background: 0 0% 4.3%;
+    /* #0B0B0B Negro profundo */
+    --foreground: 0 0% 96.1%;
+    /* #F5F5F5 Blanco texto */
 
-    --card: 0 0% 12.2%; /* #1F1F1F Gris apoyo */
+    --card: 0 0% 12.2%;
+    /* #1F1F1F Gris apoyo */
     --card-foreground: 0 0% 96.1%;
 
     --popover: 0 0% 12.2%;
     --popover-foreground: 0 0% 96.1%;
 
-    --primary: 45 75% 52%; /* #D4AF37 Dorado metálico */
+    --primary: 45 75% 52%;
+    /* #D4AF37 Dorado metálico */
     --primary-foreground: 0 0% 4.3%;
 
-    --secondary: 0 0% 12.2%; /* Gris apoyo */
+    --secondary: 0 0% 12.2%;
+    /* Gris apoyo */
     --secondary-foreground: 0 0% 96.1%;
 
-    --muted: 0 0% 18%; 
+    --muted: 0 0% 18%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 45 75% 52%; /* Dorado */
+    --accent: 45 75% 52%;
+    /* Dorado */
     --accent-foreground: 0 0% 4.3%;
 
     --destructive: 0 84.2% 60.2%;
@@ -45,11 +51,12 @@ All colors MUST be HSL.
     --glow-gold: 0 0 20px hsla(45, 75%, 52%, 0.3);
     --shadow-luxury: 0 10px 40px -10px hsla(45, 75%, 52%, 0.2);
     --shadow-card: 0 4px 24px -4px hsla(0, 0%, 0%, 0.5);
-    
+
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
+
   * {
     @apply border-border;
   }
@@ -59,7 +66,12 @@ All colors MUST be HSL.
     font-family: 'DM Sans', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Inter', sans-serif;
     font-weight: 700;
   }
@@ -73,6 +85,7 @@ All colors MUST be HSL.
     html {
       scroll-behavior: auto;
     }
+
     * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
@@ -82,6 +95,7 @@ All colors MUST be HSL.
 }
 
 @layer components {
+
   /* Luxury button variants */
   .btn-gold {
     @apply bg-primary text-primary-foreground px-8 py-3 rounded-full font-semibold;
@@ -92,6 +106,13 @@ All colors MUST be HSL.
   .btn-outline-gold {
     @apply border-2 border-primary text-primary px-8 py-3 rounded-full font-semibold;
     @apply transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:scale-105;
+  }
+
+  .btn-whatsapp {
+    background-color: #25D366 !important;
+    color: white !important;
+    @apply px-8 py-3 rounded-full font-semibold;
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-lg;
   }
 
   /* Card with tilt effect - base styles */
@@ -142,6 +163,7 @@ All colors MUST be HSL.
       opacity: 0;
       transform: translateY(30px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -157,25 +179,32 @@ All colors MUST be HSL.
     0% {
       background-position: -200% center;
     }
+
     100% {
       background-position: 200% center;
     }
   }
 
   .shimmer {
-    background: linear-gradient(90deg, 
-      transparent, 
-      hsla(45, 75%, 52%, 0.4), 
-      transparent
-    );
+    background: linear-gradient(90deg,
+        transparent,
+        hsla(45, 75%, 52%, 0.4),
+        transparent);
     background-size: 200% 100%;
     animation: shimmer 3s infinite;
   }
 
   /* Gradient animation for buttons */
   @keyframes gradient-x {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
   }
 
   .animate-gradient-x {
@@ -190,8 +219,15 @@ All colors MUST be HSL.
 
   /* Float animation */
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
   }
 
   .animate-float {
@@ -206,9 +242,12 @@ All colors MUST be HSL.
   left: 0;
   width: 100%;
   height: 100%;
-  background: hsla(var(--background), 0.8); /* Fondo semitransparente */
-  backdrop-filter: blur(10px); /* Efecto de desenfoque */
-  display: none; /* Oculto por defecto (para móviles) */
+  background: hsla(var(--background), 0.8);
+  /* Fondo semitransparente */
+  backdrop-filter: blur(10px);
+  /* Efecto de desenfoque */
+  display: none;
+  /* Oculto por defecto (para móviles) */
   justify-content: center;
   align-items: center;
   z-index: 1000;
@@ -233,7 +272,7 @@ All colors MUST be HSL.
   height: 150px;
   background: transparent;
   border-radius: 50%;
-  box-shadow: 25px 25px 75px rgba(0,0,0,0.55);
+  box-shadow: 25px 25px 75px rgba(0, 0, 0, 0.55);
   border: 1px solid #fac142;
   display: flex;
   align-items: center;
@@ -248,8 +287,8 @@ All colors MUST be HSL.
   background: transparent;
   border: 1px dashed #fac142;
   border-radius: 50%;
-  box-shadow: inset -5px -5px 25px rgba(0,0,0,0.25),
-  inset 5px 5px 35px rgba(0,0,0,0.25);
+  box-shadow: inset -5px -5px 25px rgba(0, 0, 0, 0.25),
+    inset 5px 5px 35px rgba(0, 0, 0, 0.25);
 }
 
 .loader::after {
@@ -259,8 +298,8 @@ All colors MUST be HSL.
   height: 50px;
   border-radius: 50%;
   border: 1px dashed #fac142;
-  box-shadow: inset -5px -5px 25px rgba(0,0,0,0.25),
-  inset 5px 5px 35px rgba(0,0,0,0.25);
+  box-shadow: inset -5px -5px 25px rgba(0, 0, 0, 0.25),
+    inset 5px 5px 35px rgba(0, 0, 0, 0.25);
 }
 
 .loader span {
