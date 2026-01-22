@@ -51,7 +51,7 @@ const App = () => {
           text: 'Agenda tu visita',
           color: '#D9AE30',
           textColor: '#000000',
-          branding: true
+          branding: false
         });
       }
     };
