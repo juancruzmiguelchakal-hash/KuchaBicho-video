@@ -33,35 +33,10 @@ const App = () => {
       window.addEventListener('load', handleLoad);
     }
 
-    // Inyectar Calendly Widget
-    const link = document.createElement('link');
-    link.href = "https://assets.calendly.com/assets/external/widget.css";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
-
-    const script = document.createElement('script');
-    script.src = "https://assets.calendly.com/assets/external/widget.js";
-    script.async = true;
-    script.onload = () => {
-      // @ts-ignore
-      if (window.Calendly) {
-        // @ts-ignore
-        window.Calendly.initBadgeWidget({
-          url: 'https://calendly.com/beepbeepdeliverygroupsv/30min?primary_color=a4b026',
-          text: 'Agenda tu visita',
-          color: '#D9AE30',
-          textColor: '#000000',
-          branding: false
-        });
-      }
-    };
-    document.body.appendChild(script);
-
+    // Limpieza opcional del script si fuera necesario, pero el widget suele ser persistente
+    // No removemos el script para evitar recargas innecesarias en navegación interna
     return () => {
       window.removeEventListener('load', handleLoad);
-      // Limpieza opcional del script si fuera necesario, pero el widget suele ser persistente
-      if (document.head.contains(link)) document.head.removeChild(link);
-      // No removemos el script para evitar recargas innecesarias en navegación interna
     };
   }, []);
 

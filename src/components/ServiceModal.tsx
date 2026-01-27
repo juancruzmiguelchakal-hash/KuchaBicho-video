@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X, CheckCircle2, Clock, Shield, FileText, Calculator, AlertTriangle, Loader2, Send } from 'lucide-react';
+import { X, CheckCircle2, Clock, Shield, FileText, Calculator, AlertTriangle, Loader2, Send, Calendar } from 'lucide-react';
 
 interface ServiceModalProps {
   isOpen: boolean;
@@ -154,7 +154,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
         setSubmitStatus('success');
         setTimeout(() => {
           onClose();
-          window.location.href = 'https://calendly.com/beepbeepdeliverygroupsv/30min';
+          // Removed redirection to Calendly as requested
+          // window.location.href = 'https://calendly.com/beepbeepdeliverygroupsv/30min';
         }, 1500);
       } else {
         setSubmitStatus('error');
@@ -296,6 +297,18 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
                 className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none resize-none"
                 value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })} />
             </div>
+
+            {/* Agenda tu visita Button */}
+            <a
+              href="https://calendly.com/beepbeepdeliverygroupsv/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full p-3 bg-card border border-primary/30 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/5 transition-all group"
+            >
+              <Calendar className="text-primary group-hover:scale-110 transition-transform" size={20} />
+              <span className="font-medium text-foreground/80 group-hover:text-primary transition-colors">Agendá tu visita</span>
+              <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full ml-1">Recomendado</span>
+            </a>
 
             {/* Submit Button */}
             <button

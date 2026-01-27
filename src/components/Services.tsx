@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Bug, SprayCan, Rat, CloudRain, Bird, Archive, Leaf } from 'lucide-react';
+import { Bug, SprayCan, Rat, Bird, Leaf } from 'lucide-react';
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -131,7 +131,7 @@ const Services = ({ onOpenModal }: ServicesProps) => {
             onLearnMore={() => onOpenModal('desratizacion')}
           />
           <ServiceCard
-            icon={<CloudRain size={48} className="text-yellow-400 stroke-[1.5]" />}
+            icon={<img src="/iconomosquito.png" alt="Fumigación" className="w-12 h-12 object-contain" />}
             title="Fumigación"
             description="Servicio general de fumigación preventiva y correctiva."
             price="$38.000"
@@ -152,7 +152,7 @@ const Services = ({ onOpenModal }: ServicesProps) => {
             onLearnMore={() => onOpenModal('aves')}
           />
           <ServiceCard
-            icon={<Archive size={48} className="text-yellow-400 stroke-[1.5]" />}
+            icon={<img src="/iconoabeja.png" alt="Control de abejas" className="w-12 h-12 object-contain" />}
             title="Control de abejas"
             description="Manejo seguro de panales y enjambres de abejas."
             price="$55.000"
