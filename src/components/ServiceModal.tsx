@@ -80,7 +80,7 @@ const SPACE_MULTIPLIERS = {
   house_small: { label: 'Casa Pequeña', value: 1.2 },
   house_large: { label: 'Casa Grande / Jardín', value: 1.5 },
   commercial: { label: 'Local Comercial', value: 2 },
-  industrial: { label: 'Industrial / Galpón', value: 3 },
+  industrial: { label: 'Industrial / Empresa', value: 3 },
 };
 
 const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {

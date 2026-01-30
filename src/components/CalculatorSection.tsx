@@ -17,7 +17,7 @@ const SPACE_MULTIPLIERS = {
     house_small: { label: 'Casa Pequeña (x1.2)', value: 1.2 },
     house_large: { label: 'Casa Grande / Jardín (x1.5)', value: 1.5 },
     commercial: { label: 'Local Comercial (x2)', value: 2 },
-    industrial: { label: 'Nave Industrial / Galpón (x3)', value: 3 },
+    industrial: { label: 'Nave Industrial / Empresa (x3)', value: 3 },
 };
 
 const CalculatorSection = () => {
