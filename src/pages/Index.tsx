@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Footer from '@/components/Footer';
+import Clients from '@/components/Clients';
 
 const Index = () => {
   const organizationSchema = {
@@ -140,7 +140,7 @@ const Index = () => {
       <div className="min-h-screen">
         <Header />
         <Hero />
-        <Footer />
+        <Clients />
       </div>
     </>
   );

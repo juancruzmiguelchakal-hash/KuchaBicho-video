@@ -97,6 +97,33 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Empresas que confían en nosotros */}
+        <div className="border-t border-border/50 mt-12 pt-12">
+          <h4 className="text-2xl font-heading font-bold text-foreground text-center mb-8">Empresas que confían en nosotros</h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            {/* Cliente 1 */}
+            <div className="flex items-center justify-center h-36 bg-background rounded-lg border border-border/30 hover:border-primary/30 transition-colors group overflow-hidden">
+              <img src="/iconocliente1.png" alt="Innovatech" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
+            </div>
+            {/* Cliente 2 */}
+            <div className="flex items-center justify-center h-36 bg-background rounded-lg border border-border/30 hover:border-primary/30 transition-colors group overflow-hidden">
+              <img src="/iconocliente2.png" alt="EcoLogistics" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
+            </div>
+            {/* Cliente 3 */}
+            <div className="flex items-center justify-center h-36 bg-background rounded-lg border border-border/30 hover:border-primary/30 transition-colors group overflow-hidden">
+              <img src="/iconocliente3.png" alt="Precision Group" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
+            </div>
+            {/* Cliente 4 */}
+            <div className="flex items-center justify-center h-36 bg-background rounded-lg border border-border/30 hover:border-primary/30 transition-colors group overflow-hidden">
+              <img src="/iconocliente4.png" alt="GreenSolutions" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
+            </div>
+            {/* Cliente 5 */}
+            <div className="flex items-center justify-center h-36 bg-background rounded-lg border border-border/30 hover:border-primary/30 transition-colors group overflow-hidden">
+              <img src="/iconocliente5.png" alt="VentureCorp" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
+            </div>
+          </div>
+        </div>
+
         {/* Bottom Line */}
         <div className="border-t border-border/50 mt-12 pt-8 text-center">
           <p className="text-foreground/50 text-base">

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { X, CheckCircle2, Clock, Shield, FileText, Calculator, AlertTriangle, Loader2, Send, Calendar } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, Calendar, Clock, Shield, FileText, Send, Loader2, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 interface ServiceModalProps {
   isOpen: boolean;
@@ -7,72 +7,79 @@ interface ServiceModalProps {
   serviceId: string;
 }
 
-// Service Configuration with Base Prices
+// Service Configuration
 const SERVICES_DATA: Record<string, any> = {
   desinfeccion: {
     title: 'Desinfección',
     description: 'Eliminación de virus y bacterias para asegurar un ambiente saludable y libre de patógenos.',
-    basePrice: 35000,
+    basePrice: 8000,
     benefits: ['Certificado de desinfección', 'Productos seguros para humanos', 'Elimina COVID-19 y gripe', 'Secado rápido'],
     time: '1-2 horas',
-    warranty: 'Certificado oficial'
+    warranty: 'Certificado oficial',
   },
   desinsectacion: {
     title: 'Desinsectación',
     description: 'Control efectivo de todo tipo de insectos rastreros y voladores (cucarachas, hormigas, mosquitos).',
-    basePrice: 40000,
+    basePrice: 12000,
     benefits: ['Gel cebo de larga duración', 'Sin olor', 'No requiere vaciar alacenas', 'Efecto residual'],
     time: '1-3 horas',
-    warranty: '60 días'
+    warranty: '60 días',
   },
   desratizacion: {
     title: 'Desratización',
     description: 'Eliminación segura y garantizada de roedores mediante cebos de alta atracción y seguridad.',
-    basePrice: 45000,
+    basePrice: 15000,
     benefits: ['Cebos de seguridad con llave', 'Seguro para mascotas', 'Identificación de accesos', 'Seguimiento'],
     time: '2-3 horas',
-    warranty: '90 días'
+    warranty: '90 días',
   },
   fumigacion: {
     title: 'Fumigación',
     description: 'Servicio general preventivo y correctivo para múltiples plagas en hogares y comercios.',
-    basePrice: 38000,
+    basePrice: 10000,
     benefits: ['Cobertura amplia', 'Prevención de infestaciones', 'Productos de banda verde', 'Certificado municipal'],
     time: '2-4 horas',
-    warranty: '60 días'
+    warranty: '60 días',
   },
   murcielagos: {
     title: 'Control de murciélagos',
     description: 'Erradicación ética y segura, exclusión y sellado de puntos de ingreso.',
-    basePrice: 75000,
+    basePrice: 20000,
     benefits: ['Protocolo de exclusión (sin matar)', 'Sellado de ingresos', 'Limpieza de guano', 'Desinfección de zona'],
     time: '1-2 jornadas',
-    warranty: '1 año'
+    warranty: '1 año',
   },
   aves: {
     title: 'Control de aves',
     description: 'Soluciones para evitar el anidamiento y presencia de palomas y otras aves (redes, pinches).',
-    basePrice: 60000,
+    basePrice: 18000,
     benefits: ['Instalación de redes invisible', 'Pinches antiviposamiento', 'Limpieza de áreas afectadas', 'Materiales resistentes UV'],
     time: 'Según superficie',
-    warranty: '2 años en redes'
+    warranty: '2 años en redes',
   },
   abejas: {
     title: 'Control de abejas',
     description: 'Manejo seguro y traslado de panales y enjambres por personal capacitado.',
-    basePrice: 55000,
+    basePrice: 16000,
     benefits: ['Retiro de panal', 'Traslado seguro', 'Sellado de huecos', 'Seguridad total'],
     time: '2-4 horas',
-    warranty: 'Garantía de retiro'
+    warranty: 'Garantía de retiro',
   },
   vegetales: {
     title: 'Control de espacios vegetales',
     description: 'Control de plagas específicas en jardines, parques y espacios verdes.',
-    basePrice: 50000,
+    basePrice: 14000,
     benefits: ['Cuidado de especies vegetales', 'Productos sistémicos', 'Control de hormiga podadora', 'Fertilización opcional'],
     time: 'Según extensión',
-    warranty: '30 días'
-  }
+    warranty: '30 días',
+  },
+  empresas: {
+    title: 'Empresas e Industrias',
+    description: 'Control y reporte estratégico mensual de plagas con certificación avalada por ingeniero agrónomo.',
+    benefits: ['Reportes mensuales detallados', 'Certificación de ingeniero agrónomo', 'Plan de control personalizado', 'Monitoreo continuo'],
+    time: 'A convenir',
+    warranty: 'Según contrato',
+  },
 };
 
 const SPACE_MULTIPLIERS = {
@@ -93,10 +100,16 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
     locality: '',
     street: '',
     number: '',
+    // Campos para empresas
+    companyName: '',
+    responsableName: '',
+    availability: '',
   });
   const [estimatedPrice, setEstimatedPrice] = useState<number | null>(null);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const service = SERVICES_DATA[serviceId] || SERVICES_DATA.desratizacion;
+  const isEmpresasService = serviceId === 'empresas';
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -114,9 +127,13 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
   useEffect(() => {
     if (!isOpen) {
-      setFormData({ name: '', phone: '', email: '', message: '', spaceType: '', locality: '', street: '', number: '' });
+      setFormData({ 
+        name: '', phone: '', email: '', message: '', spaceType: '', locality: '', street: '', number: '',
+        companyName: '', responsableName: '', availability: ''
+      });
       setEstimatedPrice(null);
       setSubmitStatus('idle');
+      setErrors({});
     }
   }, [isOpen]);
 
@@ -132,6 +149,28 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validación según el tipo de servicio
+    const newErrors: Record<string, string> = {};
+    
+    if (isEmpresasService) {
+      if (!formData.companyName.trim()) newErrors.companyName = 'Campo requerido';
+      if (!formData.responsableName.trim()) newErrors.responsableName = 'Campo requerido';
+      if (!formData.email.trim()) newErrors.email = 'Campo requerido';
+      if (!formData.message.trim()) newErrors.message = 'Campo requerido';
+      if (!formData.availability.trim()) newErrors.availability = 'Campo requerido';
+    } else {
+      if (!formData.name.trim()) newErrors.name = 'Campo requerido';
+      if (!formData.email.trim()) newErrors.email = 'Campo requerido';
+      if (!formData.spaceType) newErrors.spaceType = 'Selecciona una opción';
+    }
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
+    setErrors({});
     setSubmitStatus('submitting');
 
     // Preparation for FormData
@@ -139,10 +178,17 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
     const data = new FormData(form);
 
     // Add calculated fields
-    const spaceLabel = Object.entries(SPACE_MULTIPLIERS).find(([key]) => key === formData.spaceType)?.[1].label || 'No especificado';
-    data.append('Servicio', service.title);
-    data.append('Espacio', spaceLabel);
-    data.append('Presupuesto Estimado', estimatedPrice ? `$${estimatedPrice.toLocaleString('es-AR')}` : 'A confirmar');
+    if (!isEmpresasService) {
+      const spaceLabel = Object.entries(SPACE_MULTIPLIERS).find(([key]) => key === formData.spaceType)?.[1].label || 'No especificado';
+      data.append('Servicio', service.title);
+      data.append('Espacio', spaceLabel);
+      data.append('Presupuesto Estimado', estimatedPrice ? `$${estimatedPrice.toLocaleString('es-AR')}` : 'A confirmar');
+    } else {
+      data.append('Tipo de Consulta', 'Servicio a Empresas e Industrias');
+      data.append('Empresa', formData.companyName);
+      data.append('Responsable', formData.responsableName);
+      data.append('Disponibilidad', formData.availability);
+    }
 
     try {
       const response = await fetch('https://formsubmit.co/ajax/kuchabicho@gmail.com', {
@@ -154,8 +200,6 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
         setSubmitStatus('success');
         setTimeout(() => {
           onClose();
-          // Removed redirection to Calendly as requested
-          // window.location.href = 'https://calendly.com/beepbeepdeliverygroupsv/30min';
         }, 1500);
       } else {
         setSubmitStatus('error');
@@ -174,41 +218,45 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
         {/* Left Column: Info */}
         <div className="md:w-1/2 p-8 bg-gradient-to-br from-primary/5 to-background border-r border-border/50">
-          <div className="flex justify-between items-start mb-6">
-            <h2 className="text-3xl font-heading font-bold text-foreground">{service.title}</h2>
+          <div className="flex justify-between items-start mb-2">
+            <h2 className="text-2xl font-heading font-bold text-foreground">{service.title}</h2>
             <button onClick={onClose} className="md:hidden p-2 hover:bg-black/5 rounded-full"><X size={24} /></button>
           </div>
 
-          <p className="text-lg text-foreground/80 mb-6 leading-relaxed">{service.description}</p>
+          <p className="text-foreground/70 mb-6 leading-relaxed">{service.description}</p>
 
           <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-bold flex items-center gap-2 mb-3">
-                <CheckCircle2 className="text-primary" size={20} /> Beneficios
-              </h3>
-              <ul className="space-y-2">
-                {service.benefits.map((b: string, i: number) => (
-                  <li key={i} className="flex items-center gap-2 text-foreground/70 text-sm">
-                    <span className="w-1.5 h-1.5 bg-primary rounded-full" /> {b}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* Beneficios */}
+            {service.benefits && service.benefits.length > 0 && (
+              <div>
+                <h3 className="text-lg font-bold flex items-center gap-2 mb-4 text-foreground">
+                  <span className="w-2 h-2 rounded-full bg-primary"></span> Beneficios
+                </h3>
+                <ul className="space-y-3">
+                  {service.benefits.map((benefit: string, idx: number) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <span className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+                      <span className="text-foreground/70 text-sm">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-            <div className="flex gap-4">
-
-              <div className="flex-1 p-4 bg-white/50 rounded-xl border border-border/50">
-                <div className="flex items-center gap-2 mb-1 text-primary">
+            {/* Tiempo y Garantía */}
+            <div className="grid grid-cols-2 gap-3 pt-4 border-t border-border/30">
+              <div className="p-4 bg-white/50 rounded-xl border border-border/50">
+                <div className="flex items-center gap-2 mb-2 text-primary">
                   <Clock size={18} /> <span className="font-bold text-sm">Tiempo</span>
                 </div>
-                <p className="text-foreground/80 text-sm">{service.time}</p>
+                <p className="text-foreground/80 text-sm font-medium">{service.time}</p>
               </div>
 
-              <div className="flex-1 p-4 bg-white/50 rounded-xl border border-border/50">
-                <div className="flex items-center gap-2 mb-1 text-primary">
+              <div className="p-4 bg-white/50 rounded-xl border border-border/50">
+                <div className="flex items-center gap-2 mb-2 text-primary">
                   <Shield size={18} /> <span className="font-bold text-sm">Garantía</span>
                 </div>
-                <p className="text-foreground/80 text-sm">{service.warranty}</p>
+                <p className="text-foreground/80 text-sm font-medium">{service.warranty}</p>
               </div>
             </div>
 
@@ -221,16 +269,16 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
         </div>
 
         {/* Right Column: Calculator & Form */}
-        <div className="md:w-1/2 p-8 pb-32 relative">
+        <div className="md:w-1/2 p-8 pb-32 relative max-h-[90vh] overflow-y-auto">
           <button onClick={onClose} className="hidden md:block absolute top-4 right-4 p-2 hover:bg-black/5 rounded-full transition-colors">
             <X size={24} className="text-foreground/50" />
           </button>
 
           <div className="mb-6">
             <h3 className="text-2xl font-bold flex items-center gap-2 mb-2">
-              <Calculator className="text-primary" /> Cotizadora
+              <FileText className="text-primary" /> {isEmpresasService ? 'Solicitud de Servicio' : 'Cotizadora'}
             </h3>
-            <p className="text-sm text-foreground/60">Seleccioná el tamaño para ver el precio estimado.</p>
+            {!isEmpresasService && <p className="text-sm text-foreground/60">Seleccioná el tamaño para ver el precio estimado.</p>}
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -240,63 +288,220 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_cc" value="kuchabicho@gmail.com" />
 
-            {/* Calculator Input */}
-            <div className="bg-secondary/30 p-4 rounded-xl border border-border/50">
-              <label className="block text-sm font-medium mb-2">Tipo de Espacio</label>
-              <select
-                value={formData.spaceType}
-                onChange={(e) => setFormData({ ...formData, spaceType: e.target.value })}
-                className="w-full p-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all"
-                required
-              >
-                <option value="">Seleccionar...</option>
-                {Object.entries(SPACE_MULTIPLIERS).map(([key, { label }]) => (
-                  <option key={key} value={key}>{label}</option>
-                ))}
-              </select>
-
-              {estimatedPrice && (
-                <div className="mt-4 pt-4 border-t border-border/50 flex justify-between items-center animate-fade-in">
-                  <span className="text-foreground/70 font-medium">Total Estimado:</span>
-                  <span className="text-2xl font-bold text-primary">${estimatedPrice.toLocaleString('es-AR')}</span>
+            {isEmpresasService ? (
+              /* Empresas Form */
+              <>
+                <div>
+                    <label className="block text-sm font-medium mb-2">Nombre de la Empresa *</label>
+                    <input
+                      type="text"
+                      name="companyName"
+                      placeholder="Ej: Tech Solutions SA"
+                      value={formData.companyName}
+                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
+                      errors.companyName ? 'border-red-500' : 'border-border'
+                    }`}
+                  />
+                  {errors.companyName && <p className="text-red-500 text-xs mt-1">{errors.companyName}</p>}
                 </div>
-              )}
-            </div>
 
-            {/* Contact Fields */}
-            <div>
-              <input type="text" name="name" placeholder="Nombre completo" required
-                className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <input type="tel" name="phone" placeholder="Teléfono" required
-                className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} />
-              <input type="email" name="email" placeholder="Email" required
-                className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
-            </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Responsable/Contacto *</label>
+                  <input
+                    type="text"
+                    name="responsableName"
+                    placeholder="Nombre de la persona responsable"
+                    value={formData.responsableName}
+                    onChange={(e) => setFormData({ ...formData, responsableName: e.target.value })}
+                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
+                      errors.responsableName ? 'border-red-500' : 'border-border'
+                    }`}
+                  />
+                  {errors.responsableName && <p className="text-red-500 text-xs mt-1">{errors.responsableName}</p>}
+                </div>
 
-            {/* Address Fields */}
-            <div>
-              <input type="text" name="locality" placeholder="Localidad" required
-                className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                value={formData.locality} onChange={e => setFormData({ ...formData, locality: e.target.value })} />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <input type="text" name="street" placeholder="Calle" required
-                className="col-span-1 sm:col-span-2 w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                value={formData.street} onChange={e => setFormData({ ...formData, street: e.target.value })} />
-              <input type="text" name="number" placeholder="Altura" required
-                className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                value={formData.number} onChange={e => setFormData({ ...formData, number: e.target.value })} />
-            </div>
-            <div>
-              <textarea name="message" placeholder="¿Algún detalle adicional?" rows={2}
-                className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none resize-none"
-                value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })} />
-            </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Email *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="correo@empresa.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
+                        errors.email ? 'border-red-500' : 'border-border'
+                      }`}
+                    />
+                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Teléfono (Opcional)</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="+54 11 2345-6789"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">Descripción del Servicio *</label>
+                  <textarea
+                    name="message"
+                    placeholder="Describe el problema o servicio que necesitas..."
+                    rows={3}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none resize-none ${
+                      errors.message ? 'border-red-500' : 'border-border'
+                    }`}
+                  />
+                  {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">Disponibilidad *</label>
+                  <select
+                    name="availability"
+                    value={formData.availability}
+                    onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
+                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
+                      errors.availability ? 'border-red-500' : 'border-border'
+                    }`}
+                  >
+                    <option value="">Seleccionar...</option>
+                    <option value="lunes-miercoles">Lunes a Miércoles</option>
+                    <option value="jueves-viernes">Jueves a Viernes</option>
+                    <option value="lunes-viernes">Lunes a Viernes</option>
+                    <option value="sabado">Sábado</option>
+                    <option value="a-convenir">A convenir</option>
+                  </select>
+                  {errors.availability && <p className="text-red-500 text-xs mt-1">{errors.availability}</p>}
+                </div>
+              </>
+            ) : (
+              /* Regular Service Form */
+              <>
+                <div className="bg-secondary/30 p-4 rounded-xl border border-border/50">
+                  <label className="block text-sm font-medium mb-2">Tipo de Espacio *</label>
+                  <select
+                    name="spaceType"
+                    value={formData.spaceType}
+                    onChange={(e) => setFormData({ ...formData, spaceType: e.target.value })}
+                    className={`w-full p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
+                      errors.spaceType ? 'border-red-500' : 'border-border'
+                    }`}
+                  >
+                    <option value="">Seleccionar...</option>
+                    {Object.entries(SPACE_MULTIPLIERS).map(([key, { label }]) => (
+                      <option key={key} value={key}>{label}</option>
+                    ))}
+                  </select>
+                  {errors.spaceType && <p className="text-red-500 text-xs mt-1">{errors.spaceType}</p>}
+
+                  {estimatedPrice && (
+                    <div className="mt-4 pt-4 border-t border-border/50 flex justify-between items-center animate-fade-in">
+                      <span className="text-foreground/70 font-medium">Total Estimado:</span>
+                      <span className="text-2xl font-bold text-primary">${estimatedPrice.toLocaleString('es-AR')}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">Nombre Completo *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Tu nombre"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
+                      errors.name ? 'border-red-500' : 'border-border'
+                    }`}
+                  />
+                  {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Teléfono *</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Tu teléfono"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
+                        errors.phone ? 'border-red-500' : 'border-border'
+                      }`}
+                    />
+                    {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Email *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="tu@email.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
+                        errors.email ? 'border-red-500' : 'border-border'
+                      }`}
+                    />
+                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">Localidad *</label>
+                  <input
+                    type="text"
+                    name="locality"
+                    placeholder="Tu localidad"
+                    value={formData.locality}
+                    onChange={(e) => setFormData({ ...formData, locality: e.target.value })}
+                    className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <input
+                    type="text"
+                    name="street"
+                    placeholder="Calle"
+                    value={formData.street}
+                    onChange={(e) => setFormData({ ...formData, street: e.target.value })}
+                    className="col-span-1 sm:col-span-2 w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                  />
+                  <input
+                    type="text"
+                    name="number"
+                    placeholder="Altura"
+                    value={formData.number}
+                    onChange={(e) => setFormData({ ...formData, number: e.target.value })}
+                    className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">Detalles Adicionales</label>
+                  <textarea
+                    name="message"
+                    placeholder="¿Algún detalle adicional?"
+                    rows={2}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full p-3 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none resize-none"
+                  />
+                </div>
+              </>
+            )}
 
             {/* Agenda tu visita Button */}
             <a
@@ -313,11 +518,11 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={submitStatus === 'submitting' || !estimatedPrice}
+              disabled={submitStatus === 'submitting' || (!isEmpresasService && !estimatedPrice)}
               className="w-full btn-gold py-4 rounded-xl flex items-center justify-center gap-2 mt-4 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] transition-all"
             >
               {submitStatus === 'submitting' ? <Loader2 className="animate-spin" /> : <Send size={18} />}
-              {submitStatus === 'submitting' ? 'Enviando...' : 'Enviar Presupuesto'}
+              {submitStatus === 'submitting' ? 'Enviando...' : 'Enviar Solicitud'}
             </button>
 
             {/* Feedback Messages */}

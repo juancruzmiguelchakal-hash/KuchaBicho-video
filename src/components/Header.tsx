@@ -35,19 +35,19 @@ const Header = () => {
       className={`fixed top-0 w-full z-40 transition-all duration-300 ${isScrolled ? 'bg-background/95 backdrop-blur-lg shadow-lg border-b border-border/50' : 'bg-transparent'
         }`}
     >
-      <div className="w-full mx-auto px-6 sm:px-12 md:px-24 lg:px-32 py-2 max-h-20 flex items-center justify-between">
+      <div className="w-full mx-auto px-4 sm:px-8 md:px-20 lg:px-32 py-2 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           <img
             src="/assets/logoheader.gif"
-            className="w-16 h-16 md:w-20 md:h-20 object-contain"
+            className="w-14 h-14 sm:w-16 sm:h-16 md:w-16 md:h-16 object-contain"
             alt="Logo Animado"
           />
-          <div>
-            <span className="text-3xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-yellow-300 block leading-none text-left">
+          <div className="hidden sm:block">
+            <span className="text-2xl sm:text-3xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-yellow-300 block leading-tight text-left">
               Kuchabicho
             </span>
-            <span className="text-sm text-foreground/60 text-left">Control de Plagas</span>
+            <span className="text-xs sm:text-sm text-foreground/60 text-left block">Control de Plagas</span>
           </div>
         </Link>
 

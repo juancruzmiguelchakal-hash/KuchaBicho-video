@@ -13,18 +13,18 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative overflow-hidden pt-20 md:pt-36 pb-20 bg-background text-white" aria-labelledby="hero-title">
-      <div className="w-full mx-auto px-6 sm:px-12 md:px-24 lg:px-32 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="relative overflow-hidden pt-20 md:pt-32 lg:pt-36 pb-16 md:pb-20 bg-background text-white" aria-labelledby="hero-title">
+      <div className="w-full mx-auto px-4 sm:px-8 md:px-20 lg:px-32 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Contenedor del texto: añadimos padding top solo en móvil (pt-4) */}
-          <div className={`pt-4 lg:pt-0 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <h1 id="hero-title" className="text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-heading font-bold mb-6 leading-tight">
+          <div className={`pt-2 sm:pt-4 lg:pt-0 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+            <h1 id="hero-title" className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-heading font-bold mb-4 md:mb-6 leading-tight">
               <span className="text-white">Kuchabicho Fumigaciones</span>
             </h1>
-            <p className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-yellow-300 to-primary">
+            <p className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-semibold mb-3 md:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary via-yellow-300 to-primary">
               Si hay invasión, Kuchabicho es la solución.
             </p>
-            <p className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-xl">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 md:mb-10 leading-relaxed max-w-xl">
               Servicio profesional para eliminar cucarachas, roedores y otras plagas en tu hogar, comercio o industria. Rápido, efectivo y garantizado.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mb-8">

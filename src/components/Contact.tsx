@@ -94,40 +94,40 @@ const Contact = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background via-card/20 to-background overflow-hidden">
-      <div className="w-full mx-auto px-4 md:px-[50px]">
+    <section className="py-16 md:py-20 bg-gradient-to-b from-background via-card/20 to-background overflow-hidden">
+      <div className="w-full mx-auto px-4 sm:px-8 md:px-20 lg:px-32">
         {/* Header animado */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-sm text-primary mb-6">
+        <div className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-xs sm:text-sm text-primary mb-4 md:mb-6">
             <Sparkles size={16} className="animate-pulse" aria-hidden="true" />
             <span>Servicio Profesional de Control de Plagas</span>
           </div>
-          <h2 className="section-title">Solicitá tu Fumigación Profesional</h2>
-          <p className="text-2xl text-foreground/70 max-w-3xl mx-auto mt-4">
+          <h2 className="section-title text-3xl md:text-5xl">Solicitá tu Fumigación Profesional</h2>
+          <p className="text-lg md:text-2xl text-foreground/70 max-w-3xl mx-auto mt-3 md:mt-4">
             ¿Problemas con cucarachas, roedores u otras plagas? Kuchabicho Fumigaciones te ofrece una solución rápida y definitiva. Completá el formulario o contactanos por WhatsApp para una respuesta inmediata.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 max-w-6xl mx-auto">
           {/* Formulario con seguridad mejorada */}
           <div
             className={`lg:col-span-7 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
           >
-            <div className="bg-card/60 backdrop-blur-xl p-8 md:p-10 rounded-3xl border border-border/50 shadow-2xl relative overflow-hidden">
+            <div className="bg-card/60 backdrop-blur-xl p-6 md:p-8 lg:p-10 rounded-3xl border border-border/50 shadow-2xl relative overflow-hidden">
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl animate-pulse" />
               <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 
-              <h3 className="text-3xl font-heading font-bold text-foreground mb-2 relative z-10" id="form-title">
+              <h3 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-2 relative z-10" id="form-title">
                 Pedí tu Presupuesto sin Cargo
               </h3>
-              <p className="text-foreground/60 text-base mb-8 relative z-10">
+              <p className="text-xs md:text-base text-foreground/60 mb-6 md:mb-8 relative z-10">
                 Nuestro equipo de expertos en fumigación te contactará a la brevedad.
               </p>
 
               {formStatus === 'success' && (
                 <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-2xl flex items-center gap-3 relative z-10">
                   <CheckCircle className="text-green-500" size={24} />
-                  <p className="text-green-400 font-medium">¡Mensaje enviado con éxito! Te responderemos pronto.</p>
+                  <p className="text-sm md:text-base text-green-400 font-medium">¡Mensaje enviado con éxito! Te responderemos pronto.</p>
                 </div>
               )}
 

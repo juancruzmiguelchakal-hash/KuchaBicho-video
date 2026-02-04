@@ -32,16 +32,16 @@ const Nosotros = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="pt-40 pb-20 bg-gradient-to-b from-background to-card/30">
-        <div className="w-full mx-auto px-4 md:px-[50px]">
+      <section className="pt-32 md:pt-40 pb-16 md:pb-20 bg-gradient-to-b from-background to-card/30">
+        <div className="w-full mx-auto px-4 sm:px-8 md:px-20 lg:px-32">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-heading font-bold mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-heading font-bold mb-4 md:mb-6">
               <span className="text-foreground">Sobre </span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-yellow-300 to-primary">
                 Kuchabicho Fumigaciones
               </span>
             </h1>
-            <p className="text-2xl text-foreground/70 leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-foreground/70 leading-relaxed">
               Somos un equipo de profesionales con amplia trayectoria en el control de plagas.
               Combinamos experiencia y técnicas modernas para ofrecer un servicio cercano y garantizado.
             </p>
@@ -50,26 +50,26 @@ const Nosotros = () => {
       </section>
 
       {/* Misión y Visión */}
-      <section className="py-20 bg-card/30">
-        <div className="w-full mx-auto px-4 md:px-[50px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            <div className="bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-border/50">
+      <section className="py-16 md:py-20 bg-card/30">
+        <div className="w-full mx-auto px-4 sm:px-8 md:px-20 lg:px-32">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+            <div className="bg-card/50 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-border/50">
               <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
                 <Target className="text-primary" size={32} />
               </div>
-              <h2 className="text-3xl font-heading font-bold text-foreground mb-4">Nuestra Misión</h2>
-              <p className="text-foreground/70 leading-relaxed text-lg">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-4">Nuestra Misión</h2>
+              <p className="text-sm md:text-base text-foreground/70 leading-relaxed">
                 Brindar soluciones efectivas y seguras para el control de plagas, protegiendo la salud
                 de las familias y empresas con productos de calidad y un servicio profesional.
               </p>
             </div>
 
-            <div className="bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-border/50">
+            <div className="bg-card/50 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-border/50">
               <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
                 <Award className="text-primary" size={32} />
               </div>
-              <h2 className="text-3xl font-heading font-bold text-foreground mb-4">Nuestra Visión</h2>
-              <p className="text-foreground/70 leading-relaxed text-lg">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-4">Nuestra Visión</h2>
+              <p className="text-sm md:text-base text-foreground/70 leading-relaxed">
                 Ser la empresa de control de plagas más confiable de la región, reconocida por
                 la calidad de nuestro trabajo, la atención al cliente y el compromiso ambiental.
               </p>
@@ -79,32 +79,32 @@ const Nosotros = () => {
       </section>
 
       {/* Valores */}
-      <section className="py-20 bg-gradient-to-b from-card/30 to-background">
-        <div className="w-full mx-auto px-4 md:px-[50px]">
+      <section className="py-16 md:py-20 bg-gradient-to-b from-card/30 to-background">
+        <div className="w-full mx-auto px-4 sm:px-8 md:px-20 lg:px-32">
           <h2 className="section-title text-center mb-12">Nuestros Valores</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="text-center p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+            <div className="text-center p-4 md:p-6">
               <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <Shield className="text-primary" size={40} />
               </div>
-              <h3 className="text-2xl font-heading font-bold text-foreground mb-3">Compromiso</h3>
-              <p className="text-foreground/70 text-lg">Garantizamos resultados efectivos en cada trabajo que realizamos.</p>
+              <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-3">Compromiso</h3>
+              <p className="text-sm md:text-base text-foreground/70">Garantizamos resultados efectivos en cada trabajo que realizamos.</p>
             </div>
 
-            <div className="text-center p-6">
+            <div className="text-center p-4 md:p-6">
               <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <Users className="text-primary" size={40} />
               </div>
-              <h3 className="text-2xl font-heading font-bold text-foreground mb-3">Cercanía</h3>
-              <p className="text-foreground/70 text-lg">Atención personalizada y trato directo con cada cliente.</p>
+              <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-3">Cercanía</h3>
+              <p className="text-sm md:text-base text-foreground/70">Atención personalizada y trato directo con cada cliente.</p>
             </div>
 
-            <div className="text-center p-6">
+            <div className="text-center p-4 md:p-6">
               <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <Award className="text-primary" size={40} />
               </div>
-              <h3 className="text-2xl font-heading font-bold text-foreground mb-3">Calidad</h3>
-              <p className="text-foreground/70 text-lg">Productos aprobados y técnicas de última generación.</p>
+              <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-3">Calidad</h3>
+              <p className="text-sm md:text-base text-foreground/70">Productos aprobados y técnicas de última generación.</p>
             </div>
           </div>
         </div>
