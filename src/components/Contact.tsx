@@ -69,9 +69,6 @@ const Contact = () => {
       const response = await fetch(formSubmitUrl, {
         method: 'POST',
         body: formDataObj,
-        headers: {
-          'Accept': 'application/json'
-        }
       });
 
       if (response.ok) {
