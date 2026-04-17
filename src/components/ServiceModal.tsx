@@ -282,11 +282,12 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Hidden Fields for FormSubmit */}
-            <input type="hidden" name="_subject" value="Nuevo Pedido Kuchabicho" />
-            <input type="hidden" name="_captcha" value="false" />
+            {/* Hidden Fields for FormSubmit.co */}
+            <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+            <input type="hidden" name="_blacklist" value="viagra, casino, click here, free money, winner, cryptocurrency, bitcoin, buy now, earn money, make money fast, SEO, backlinks, investment opportunity, loan offer" />
+            <input type="hidden" name="_subject" value="Nuevo contacto desde el sitio web" />
             <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_cc" value="kuchabicho@gmail.com" />
+            <input type="hidden" name="_next" value="https://tusitio.com/gracias" />
 
             {isEmpresasService ? (
               /* Empresas Form */
@@ -505,7 +506,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
             {/* Agenda tu visita Button */}
             <a
-              href="https://calendly.com/beepbeepdeliverygroupsv/30min"
+              href="https://calendly.com/kuchabicho/30min"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full p-3 bg-card border border-primary/30 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/5 transition-all group"
