@@ -191,7 +191,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
     }
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/kuchabicho@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/fb4bfb3fe396529f4e2ef806c6d188cf', {
         method: 'POST',
         body: data
       });
