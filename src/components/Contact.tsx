@@ -64,8 +64,7 @@ const Contact = () => {
     }
 
     try {
-      // ❗ CRITICAL: Replace with your secret FormSubmit URL to hide your email
-      const formSubmitUrl = 'https://formsubmit.co/ajax/YOUR_SECRET_URL_HERE';
+      const formSubmitUrl = 'https://formsubmit.co/ajax/fb4bfb3fe396529f4e2ef806c6d188cf';
 
       const response = await fetch(formSubmitUrl, {
         method: 'POST',
@@ -144,18 +143,10 @@ const Contact = () => {
                 aria-labelledby="form-title"
               >
                 {/* ===== CAMPOS DE SEGURIDAD OCULTOS PARA FORMSUBMIT ===== */}
-                
-                {/* ❗ CRITICAL: Reemplazar por la URL a la que quieres redirigir al usuario después de un envío exitoso. */}
-                <input type="hidden" name="_next" value="https://your-domain.co/thank-you.html" />
-
-                {/* HONEYPOT: Campo anti-bots. Déjalo como está. */}
-                <input type="text" name="_honey" style={{ display: 'none' }} />
-                
-                {/* CAPTCHA: FormSubmit usa Google reCAPTCHA por defecto. No se necesita el campo para activarlo. */}
-                {/* Para desactivarlo (no recomendado), añade: <input type="hidden" name="_captcha" value="false" /> */}
-                
-                {/* Asunto del email */}
+                <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+                <input type="hidden" name="_blacklist" value="viagra, casino, click here, free money, winner, cryptocurrency, bitcoin, buy now, earn money, make money fast, SEO, backlinks, investment opportunity, loan offer" />
                 <input type="hidden" name="_subject" value="Nuevo Pedido de Presupuesto - KuchaBicho" />
+                <input type="hidden" name="_template" value="table" />
 
 
                 <div className={`transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
