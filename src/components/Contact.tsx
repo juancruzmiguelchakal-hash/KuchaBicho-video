@@ -68,14 +68,25 @@ const Contact = () => {
 
       const response = await fetch(formSubmitUrl, {
         method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+        },
         body: formDataObj,
       });
 
-      if (response.ok) {
+      // FormSubmit puede devolver 200 con body de error, revisamos el JSON
+      let result: { success?: string; message?: string } = {};
+      try {
+        result = await response.json();
+      } catch {
+        // Si no es JSON válido pero el status es ok, lo consideramos éxito
+      }
+
+      if (response.ok && result.success !== 'false') {
         setFormStatus('success');
         setFormData({ name: '', email: '', message: '', phone: '' });
       } else {
-        throw new Error('El envío del formulario falló.');
+        throw new Error(result.message || 'El envío del formulario falló.');
       }
     } catch (error) {
       console.error('Error enviando formulario:', error);
@@ -144,6 +155,9 @@ const Contact = () => {
                 <input type="hidden" name="_blacklist" value="viagra, casino, click here, free money, winner, cryptocurrency, bitcoin, buy now, earn money, make money fast, SEO, backlinks, investment opportunity, loan offer" />
                 <input type="hidden" name="_subject" value="Nuevo Pedido de Presupuesto - KuchaBicho" />
                 <input type="hidden" name="_template" value="table" />
+                {/* Deshabilitar captcha y AJAX redirect para compatibilidad en producción */}
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_replyto" value={formData.email} />
 
 
                 <div className={`transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
