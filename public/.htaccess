@@ -1,4 +1,10 @@
 Options -MultiViews
+
+# MIME types correctos para modulos JS (fix Hostinger blank page)
+AddType application/javascript .js
+AddType application/javascript .mjs
+AddType text/css .css
+
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.html [QL]
+RewriteRule ^ index.html [QSA,L]
