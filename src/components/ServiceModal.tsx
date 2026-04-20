@@ -12,7 +12,7 @@ const SERVICES_DATA: Record<string, any> = {
   desinfeccion: {
     title: 'Desinfección',
     description: 'Eliminación de virus y bacterias para asegurar un ambiente saludable y libre de patógenos.',
-    basePrice: 8000,
+    basePrice: 25000,
     benefits: ['Certificado de desinfección', 'Productos seguros para humanos', 'Elimina COVID-19 y gripe', 'Secado rápido'],
     time: '1-2 horas',
     warranty: 'Certificado oficial',
@@ -20,7 +20,7 @@ const SERVICES_DATA: Record<string, any> = {
   desinsectacion: {
     title: 'Desinsectación',
     description: 'Control efectivo de todo tipo de insectos rastreros y voladores (cucarachas, hormigas, mosquitos).',
-    basePrice: 12000,
+    basePrice: 40000,
     benefits: ['Gel cebo de larga duración', 'Sin olor', 'No requiere vaciar alacenas', 'Efecto residual'],
     time: '1-3 horas',
     warranty: '60 días',
@@ -28,7 +28,7 @@ const SERVICES_DATA: Record<string, any> = {
   desratizacion: {
     title: 'Desratización',
     description: 'Eliminación segura y garantizada de roedores mediante cebos de alta atracción y seguridad.',
-    basePrice: 15000,
+    basePrice: 75000,
     benefits: ['Cebos de seguridad con llave', 'Seguro para mascotas', 'Identificación de accesos', 'Seguimiento'],
     time: '2-3 horas',
     warranty: '90 días',
@@ -36,7 +36,7 @@ const SERVICES_DATA: Record<string, any> = {
   fumigacion: {
     title: 'Fumigación',
     description: 'Servicio general preventivo y correctivo para múltiples plagas en hogares y comercios.',
-    basePrice: 10000,
+    basePrice: 40000,
     benefits: ['Cobertura amplia', 'Prevención de infestaciones', 'Productos de banda verde', 'Certificado municipal'],
     time: '2-4 horas',
     warranty: '60 días',
@@ -44,7 +44,7 @@ const SERVICES_DATA: Record<string, any> = {
   murcielagos: {
     title: 'Control de murciélagos',
     description: 'Erradicación ética y segura, exclusión y sellado de puntos de ingreso.',
-    basePrice: 20000,
+    basePrice: 40000,
     benefits: ['Protocolo de exclusión (sin matar)', 'Sellado de ingresos', 'Limpieza de guano', 'Desinfección de zona'],
     time: '1-2 jornadas',
     warranty: '1 año',
@@ -52,7 +52,7 @@ const SERVICES_DATA: Record<string, any> = {
   aves: {
     title: 'Control de aves',
     description: 'Soluciones para evitar el anidamiento y presencia de palomas y otras aves (redes, pinches).',
-    basePrice: 18000,
+    basePrice: 40000,
     benefits: ['Instalación de redes invisible', 'Pinches antiviposamiento', 'Limpieza de áreas afectadas', 'Materiales resistentes UV'],
     time: 'Según superficie',
     warranty: '2 años en redes',
@@ -60,7 +60,7 @@ const SERVICES_DATA: Record<string, any> = {
   abejas: {
     title: 'Control de abejas',
     description: 'Manejo seguro y traslado de panales y enjambres por personal capacitado.',
-    basePrice: 16000,
+    basePrice: 50000,
     benefits: ['Retiro de panal', 'Traslado seguro', 'Sellado de huecos', 'Seguridad total'],
     time: '2-4 horas',
     warranty: 'Garantía de retiro',
@@ -68,7 +68,7 @@ const SERVICES_DATA: Record<string, any> = {
   vegetales: {
     title: 'Control de espacios vegetales',
     description: 'Control de plagas específicas en jardines, parques y espacios verdes.',
-    basePrice: 14000,
+    basePrice: 25000,
     benefits: ['Cuidado de especies vegetales', 'Productos sistémicos', 'Control de hormiga podadora', 'Fertilización opcional'],
     time: 'Según extensión',
     warranty: '30 días',
@@ -140,7 +140,9 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
   useEffect(() => {
     if (formData.spaceType) {
       const multiplier = Object.entries(SPACE_MULTIPLIERS).find(([key]) => key === formData.spaceType)?.[1].value || 1;
-      setEstimatedPrice(service.basePrice * multiplier);
+      const calculated = service.basePrice * multiplier;
+      const industrialFloor = 100000 + service.basePrice * 1.5;
+      setEstimatedPrice(formData.spaceType === 'industrial' ? Math.max(calculated, industrialFloor) : calculated);
     } else {
       setEstimatedPrice(null);
     }

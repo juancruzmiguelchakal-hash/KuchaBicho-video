@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { Calculator, Send, CheckCircle2, AlertTriangle, Loader2 } from 'lucide-react';
 
 const SERVICES = [
-    { id: 'desinfeccion', name: 'Desinfección', price: 35000 },
+    { id: 'desinfeccion', name: 'Desinfección', price: 25000 },
     { id: 'desinsectacion', name: 'Desinsectación', price: 40000 },
-    { id: 'desratizacion', name: 'Desratización', price: 45000 },
-    { id: 'fumigacion', name: 'Fumigación', price: 38000 },
-    { id: 'murcielagos', name: 'Control de murciélagos', price: 75000 },
-    { id: 'aves', name: 'Control de aves', price: 60000 },
-    { id: 'abejas', name: 'Control de abejas', price: 55000 },
-    { id: 'vegetales', name: 'Control de espacios vegetales', price: 50000 },
+    { id: 'desratizacion', name: 'Desratización', price: 75000 },
+    { id: 'fumigacion', name: 'Fumigación', price: 40000 },
+    { id: 'murcielagos', name: 'Control de murciélagos', price: 40000 },
+    { id: 'aves', name: 'Control de aves', price: 40000 },
+    { id: 'abejas', name: 'Control de abejas', price: 50000 },
+    { id: 'vegetales', name: 'Control de espacios vegetales', price: 25000 },
 ];
 
 const SPACE_MULTIPLIERS = {
@@ -60,8 +60,10 @@ const CalculatorSection = () => {
             const service = SERVICES.find(s => s.id === selectedService);
             const multiplier = Object.entries(SPACE_MULTIPLIERS).find(([key]) => key === selectedSpace)?.[1].value;
 
-            if (service && multiplier) {
-                setTotal(service.price * multiplier);
+        if (service && multiplier) {
+                const calculated = service.price * multiplier;
+                const industrialFloor = 100000 + service.price * 1.5;
+                setTotal(selectedSpace === 'industrial' ? Math.max(calculated, industrialFloor) : calculated);
             }
         } else {
             setTotal(null);
