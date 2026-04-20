@@ -6,8 +6,8 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // Usar rutas relativas para máxima compatibilidad con Vercel y otros hostings.
-  base: mode === 'production' ? '' : '/',
+  // Usar rutas absolutas para máxima compatibilidad con SPAs en producción (Hostingers/Vercel)
+  base: '/',
   build: {
     // El directorio de salida estándar es 'dist'. 'docs' se usa para GitHub Pages.
     outDir: 'dist',
