@@ -1,10 +1,21 @@
 Options -MultiViews
 
-# MIME types correctos para modulos JS (fix Hostinger blank page)
+# MIME types correctos para modulos JS
 AddType application/javascript .js
 AddType application/javascript .mjs
 AddType text/css .css
+AddType image/svg+xml .svg
 
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.html [QSA,L]
+RewriteBase /
+
+# Dejar pasar archivos y directorios existentes
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# No reescribir la carpeta assets
+RewriteRule ^assets/ - [L]
+
+# Reescribir todo lo demás a index.html
+RewriteRule ^ index.html [L]
