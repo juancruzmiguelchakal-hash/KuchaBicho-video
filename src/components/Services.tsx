@@ -114,6 +114,13 @@ const Services = ({ onOpenModal }: ServicesProps) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
           <ServiceCard
+            icon={<img src="/iconoempresa.png" alt="Empresas e Industrias" className="w-16 h-16 object-contain" />}
+            title="Empresas e Industrias"
+            description="Control y reporte estratégico mensual de plagas con certificación avalada por ingeniero agrónomo."
+            badge="Acceso VIP mediante App"
+            onLearnMore={() => onOpenModal('empresas')}
+          />
+          <ServiceCard
             icon={<SprayCan size={48} className="text-yellow-400 stroke-[1.5]" />}
             title="Desinfección"
             description="Eliminación de virus y bacterias para un ambiente seguro."
@@ -160,13 +167,6 @@ const Services = ({ onOpenModal }: ServicesProps) => {
             title="Espacios verdes"
             description="Control de plagas en jardines y espacios vegetales."
             onLearnMore={() => onOpenModal('vegetales')}
-          />
-          <ServiceCard
-            icon={<img src="/iconoempresa.png" alt="Empresas e Industrias" className="w-16 h-16 object-contain" />}
-            title="Empresas e Industrias"
-            description="Control y reporte estratégico mensual de plagas con certificación avalada por ingeniero agrónomo."
-            badge="Acceso VIP mediante App"
-            onLearnMore={() => onOpenModal('empresas')}
           />
         </div>
       </div>
