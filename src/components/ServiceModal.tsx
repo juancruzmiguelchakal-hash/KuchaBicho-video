@@ -87,7 +87,6 @@ const SPACE_MULTIPLIERS = {
   house_small: { label: 'Casa Pequeña', value: 1.2 },
   house_large: { label: 'Casa Grande / Jardín', value: 1.5 },
   commercial: { label: 'Local Comercial', value: 2 },
-  industrial: { label: 'Industrial / Empresa', value: 3 },
 };
 
 const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
@@ -141,8 +140,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
     if (formData.spaceType) {
       const multiplier = Object.entries(SPACE_MULTIPLIERS).find(([key]) => key === formData.spaceType)?.[1].value || 1;
       const calculated = service.basePrice * multiplier;
-      const industrialFloor = 100000 + service.basePrice * 1.5;
-      setEstimatedPrice(formData.spaceType === 'industrial' ? Math.max(calculated, industrialFloor) : calculated);
+      setEstimatedPrice(calculated);
     } else {
       setEstimatedPrice(null);
     }
