@@ -17,6 +17,7 @@ const SPACE_MULTIPLIERS = {
     house_small: { label: 'Casa Pequeña (x1.2)', value: 1.2 },
     house_large: { label: 'Casa Grande / Jardín (x1.5)', value: 1.5 },
     commercial: { label: 'Local Comercial (x2)', value: 2 },
+    industrial: { label: 'Nave Industrial / Empresa (x3)', value: 3 },
 };
 
 const CalculatorSection = () => {
@@ -61,7 +62,8 @@ const CalculatorSection = () => {
 
         if (service && multiplier) {
                 const calculated = service.price * multiplier;
-                setTotal(calculated);
+                const industrialFloor = 100000 + service.price * 1.5;
+                setTotal(selectedSpace === 'industrial' ? Math.max(calculated, industrialFloor) : calculated);
             }
         } else {
             setTotal(null);
