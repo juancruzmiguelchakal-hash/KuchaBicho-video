@@ -126,7 +126,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
   useEffect(() => {
     if (!isOpen) {
-      setFormData({ 
+      setFormData({
         name: '', phone: '', email: '', message: '', spaceType: '', locality: '', street: '', number: '',
         companyName: '', responsableName: '', availability: ''
       });
@@ -149,10 +149,10 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validación según el tipo de servicio
     const newErrors: Record<string, string> = {};
-    
+
     if (isEmpresasService) {
       if (!formData.companyName.trim()) newErrors.companyName = 'Campo requerido';
       if (!formData.responsableName.trim()) newErrors.responsableName = 'Campo requerido';
@@ -164,12 +164,12 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
       if (!formData.email.trim()) newErrors.email = 'Campo requerido';
       if (!formData.spaceType) newErrors.spaceType = 'Selecciona una opción';
     }
-    
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    
+
     setErrors({});
     setSubmitStatus('submitting');
 
@@ -293,16 +293,15 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
               /* Empresas Form */
               <>
                 <div>
-                    <label className="block text-sm font-medium mb-2">Nombre de la Empresa *</label>
-                    <input
-                      type="text"
-                      name="companyName"
-                      placeholder="Ej: Tech Solutions SA"
-                      value={formData.companyName}
-                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
-                      errors.companyName ? 'border-red-500' : 'border-border'
-                    }`}
+                  <label className="block text-sm font-medium mb-2">Nombre de la Empresa *</label>
+                  <input
+                    type="text"
+                    name="companyName"
+                    placeholder="Ej: Tech Solutions SA"
+                    value={formData.companyName}
+                    onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${errors.companyName ? 'border-red-500' : 'border-border'
+                      }`}
                   />
                   {errors.companyName && <p className="text-red-500 text-xs mt-1">{errors.companyName}</p>}
                 </div>
@@ -315,9 +314,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
                     placeholder="Nombre de la persona responsable"
                     value={formData.responsableName}
                     onChange={(e) => setFormData({ ...formData, responsableName: e.target.value })}
-                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
-                      errors.responsableName ? 'border-red-500' : 'border-border'
-                    }`}
+                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${errors.responsableName ? 'border-red-500' : 'border-border'
+                      }`}
                   />
                   {errors.responsableName && <p className="text-red-500 text-xs mt-1">{errors.responsableName}</p>}
                 </div>
@@ -331,9 +329,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
                       placeholder="correo@empresa.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
-                        errors.email ? 'border-red-500' : 'border-border'
-                      }`}
+                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${errors.email ? 'border-red-500' : 'border-border'
+                        }`}
                     />
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </div>
@@ -358,9 +355,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
                     rows={3}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none resize-none ${
-                      errors.message ? 'border-red-500' : 'border-border'
-                    }`}
+                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none resize-none ${errors.message ? 'border-red-500' : 'border-border'
+                      }`}
                   />
                   {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </div>
@@ -371,9 +367,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
                     name="availability"
                     value={formData.availability}
                     onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
-                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
-                      errors.availability ? 'border-red-500' : 'border-border'
-                    }`}
+                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${errors.availability ? 'border-red-500' : 'border-border'
+                      }`}
                   >
                     <option value="">Seleccionar...</option>
                     <option value="lunes-miercoles">Lunes a Miércoles</option>
@@ -394,9 +389,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
                     name="spaceType"
                     value={formData.spaceType}
                     onChange={(e) => setFormData({ ...formData, spaceType: e.target.value })}
-                    className={`w-full p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
-                      errors.spaceType ? 'border-red-500' : 'border-border'
-                    }`}
+                    className={`w-full p-3 bg-background border rounded-lg focus:ring-2 focus:ring-primary outline-none ${errors.spaceType ? 'border-red-500' : 'border-border'
+                      }`}
                   >
                     <option value="">Seleccionar...</option>
                     {Object.entries(SPACE_MULTIPLIERS).map(([key, { label }]) => (
@@ -421,9 +415,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
                     placeholder="Tu nombre"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
-                      errors.name ? 'border-red-500' : 'border-border'
-                    }`}
+                    className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${errors.name ? 'border-red-500' : 'border-border'
+                      }`}
                   />
                   {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                 </div>
@@ -437,9 +430,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
                       placeholder="Tu teléfono"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
-                        errors.phone ? 'border-red-500' : 'border-border'
-                      }`}
+                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${errors.phone ? 'border-red-500' : 'border-border'
+                        }`}
                     />
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                   </div>
@@ -451,9 +443,8 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
                       placeholder="tu@email.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${
-                        errors.email ? 'border-red-500' : 'border-border'
-                      }`}
+                      className={`w-full p-3 bg-background/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none ${errors.email ? 'border-red-500' : 'border-border'
+                        }`}
                     />
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </div>
@@ -506,7 +497,7 @@ const ServiceModal = ({ isOpen, onClose, serviceId }: ServiceModalProps) => {
 
             {/* Agenda tu visita Button */}
             <a
-              href="https://calendly.com/kuchabicho/30min"
+              href="https://calendly.com/kuchabicho/servicio-de-kuchabicho "
               target="_blank"
               rel="noopener noreferrer"
               className="w-full p-3 bg-card border border-primary/30 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/5 transition-all group"
